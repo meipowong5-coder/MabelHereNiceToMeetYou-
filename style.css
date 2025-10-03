@@ -1,5 +1,7 @@
 * {
-    /*text-align: center;*/
+    background-image: url("bg.png") ;
+    background-size: auto;
+    text-align: center;
     color: khaki;
     margin: 10px;
     font: 14px Tahoma;
@@ -7,11 +9,11 @@
 }
 
 button {
-    color: darkslateblue
+    color: darkslateblue;
 }
 
 .box {
-    display: flex;
+    display: inline-flex;
 }
 
 
@@ -19,36 +21,36 @@ button {
    border: dashed 1px black;
 }*/
 
-.grid-container{
-    display:grid;
-    grid-template-rows: 100px 100px;
-    grid-template-columns: 100px 100px 100px;
+.grid-container {
+    display: grid;
+    grid-template-rows: 340px 340px;
+    grid-template-columns: width/7;
     grid-gap: 1px;
 }
 
-.grid-item1{
-    background: lightgray;
-    border: solid black 1px;
+.grid-item1 {
+    background: black;
+    border: dotted pink 5px;
     grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-end: 5;
     grid-row-start: 1;
     grid-row-end: 2;
 }
 
-.grid-item2{
-    background: lightgray;
-    border: solid black 1px;
-    grid-column-start: 3;
-    grid-column-end: 4;
+.grid-item2 {
+    background: black;
+    border: dotted pink 5px;
+    grid-column-start: 5;
+    grid-column-end: 6;
     grid-row-start: 1;
     grid-row-end: 3;
 }
 
-.grid-item3{
-    background: lightgray;
-    border: solid black 1px;
+.grid-item3 {
+    background: black;
+    border: dotted pink 5px;
     grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-end: 5;
     grid-row-start: 2;
     grid-row-end: 3;
 }
