@@ -15,9 +15,9 @@ button {
 }
 
 
-.box div{
-   /*border: dashed 1px black;*/
-}
+/*.box div{
+   border: dashed 1px black;
+}*/
 
 .grid-container{
     display:grid;
