@@ -1,7 +1,7 @@
 var title = document.querySelector("h1");
-title.innerHTML = "This is my title";
+title.innerHTML = "Nice to meet you!";
 
-var button = document.querySelector("button");
+var button = document.querySelector("#aboutme");
 
 button.addEventListener("click", myfunction);
 
@@ -17,7 +17,7 @@ function myOtherfunction() {
     alert("Writing, drawing, dancing ♡〜٩( ˃▿˂ )۶〜♡");
 }
 
-
+/*
 var my1stnode = document.createElement("div");
 my1stnode.id = "work1_intro";
 my1stnode.innerHTML = "My drawing on two girls.";
@@ -53,3 +53,4 @@ document.querySelector("#work3").appendChild(my3rdnode);
 function welcomeToWork3() {
     my3rdnode.innerHTML = "( ദ്ദി ˙ᗜ˙ )";
 }
+    */

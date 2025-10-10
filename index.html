@@ -2,6 +2,11 @@
 
 <head>
     <link href="style.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Scatterplot</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -15,24 +20,39 @@
         </div>
     </div>
     <!--<h1>This is a title</h1>-->
-    <div>
-        <!--comment-->
-        I am Wong Mei Po, Mabel. 0v0
-        <button type="button">About me</button>
-        <button id="hobby">Hobby</button>
-        <button onclick="alert('Have a nice day!XD')">Press me to get a bless</button>
-        <p>Wish you have a nice day.</p>
-        <img src="me.jpg" width="300" height="300" />
-        <h1>Press the link to visit my favourite playlist</h1>
-        <a href="https://youtube.com/playlist?list=PLjFjwa9nwKrfrVHYNUnuk6uwPr4joojPW&si=VSjGRqPvFQ_CKn_a">Visit
-            葉月ゆら ⬅️ my favourite singer</a>
-    </div>
+    <header>
+        <div>
+
+            <!--comment-->
+            <nav id="main">
+                <ul>
+                    <h2>Wong Mei Po, Mabel</h2>
+                    <button id="aboutme">About me</button>
+                    <button id="hobby">Hobby</button>
+                    <button onclick="alert('Have a nice day!XD')">Press me to get a bless</button>
+                </ul>
+            </nav>
+
+            <div class="flex-container">
+                <!--<p>Wish you have a nice day.</p>-->
+                <img src="me.jpg" width="300" height="300" />
+
+
+                <p>Some words here</p>
+                <a class="intro_button"
+                    href="https://youtube.com/playlist?list=PLjFjwa9nwKrfrVHYNUnuk6uwPr4joojPW&si=VSjGRqPvFQ_CKn_a">Visit
+                    葉月ゆら ⬅️ my favourite singer</a>
+            </div>
+        </div>
+    </header>
+
+
     <audio controls>
         <source src="intrumental.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
-    <div class="grid-container">
+    <!--<div class="grid-container">
         <div id="work1" class="grid-item1">My work1
             <img src="twogirls.png" width="350" />
         </div>
@@ -41,9 +61,14 @@
         </div>
         <div id="work3" class="grid-item3">My work3
             <img src="bandw.jpeg" width="320" />
-        </div>
+        </div>-->
+
+    <section id="vis-scatterplot"></section>
+    <section id="vis-radarplot"></section>
 
     </div>
+    <script src="radarplot.js"></script>
+    <script src="scatterplot.js"></script>
     <script src="code.js"></script>
 </body>
 

@@ -1,11 +1,9 @@
 * {
-    background-image: url("bg.png") ;
-    background-size: auto;
+    background-color: rgb(92, 165, 165);
     text-align: center;
     color: khaki;
     margin: 10px;
     font: 14px Tahoma;
-    background-color: cadetblue
 }
 
 button {
@@ -16,10 +14,9 @@ button {
     display: inline-flex;
 }
 
-
-/*.box div{
-   border: dashed 1px black;
-}*/
+.box div {
+    text-align: center;
+}
 
 .grid-container {
     display: grid;
@@ -53,4 +50,128 @@ button {
     grid-column-end: 5;
     grid-row-start: 2;
     grid-row-end: 3;
+}
+
+header,
+section {
+    margin: 3em auto;
+    width: min(50em, 100%);
+    background-color: antiquewhite;
+    padding: min(1em, 15%);
+    border: dotted black 5px;
+    border-radius: 3em;
+}
+
+nav {
+    margin: 1em auto 1em auto;
+    width: min(1000px, 100%);
+    font-size: 1.5em;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    gap: 2em;
+}
+
+nav p:first-child {
+    margin-right: auto;
+    font-size: 1.5em;
+}
+
+button#aboutme {
+    border-radius: .5em;
+    font-size: 1.2em;
+    color: black;
+    background-color: antiquewhite;
+}
+
+button#hobby {
+    border-radius: .5em;
+    font-size: 1.2em;
+    color: black;
+    background-color: antiquewhite;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 3em;
+}
+
+.intro_button {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background-color: lightsalmon;
+    padding: .75em 1em;
+    margin-top: 0em;
+    border-radius: 5em;
+    font-weight: 600;
+}
+
+header img {
+    max-width: 100%;
+    border-radius: 2em;
+    object-fit: cover;
+    object-position: bottom;
+}
+
+.text-container {
+    flex: 0 1 40em;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+.scatterplot {
+    font-family: Arial, sans-serif;
+}
+.dot {
+    fill: red; /* For scatterplot */
+    opacity: 0.7;
+}
+
+.radar-chart {
+    font-family: Arial, sans-serif;
+}
+.grid-circle {
+    stroke: #ccc;
+    stroke-dasharray: 2,2;
+    fill: none;
+}
+.grid-label {
+    font-size: 10px;
+    fill: black;
+}
+.axis-line {
+    stroke: #ccc;
+}
+.axis-label {
+    font-size: 10px; /* Match radarplot.js */
+    fill: black; /* Ensure visibility */
+}
+.radar-area {
+    fill: steelblue;
+    fill-opacity: 0.3;
+    stroke: steelblue;
+    stroke-width: 2px;
+}
+.radar-dot {
+    fill: steelblue !important; /* Override global styles */
+    opacity: 0.7;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+.axis text {
+    font-size: 12px;
 }
