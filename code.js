@@ -1,4 +1,5 @@
-var title = document.querySelector("h1");
+
+/*var title = document.querySelector("h1");
 title.innerHTML = "Nice to meet you!";
 
 var button = document.querySelector("#aboutme");
@@ -17,14 +18,22 @@ function myOtherfunction() {
     alert("Writing, drawing, dancing ♡〜٩( ˃▿˂ )۶〜♡");
 }
 
-/*
+var button = document.querySelector("#bless");
+
+button.addEventListener("click", myOther2function);
+
+function myOther2function() {
+    alert("Have a nice day!XD");
+}*/
+
+
 var my1stnode = document.createElement("div");
 my1stnode.id = "work1_intro";
 my1stnode.innerHTML = "My drawing on two girls.";
 my1stnode.style.color = "blue";
 
 my1stnode.addEventListener("click", welcomeToWork1);
-document.querySelector("#work1").appendChild(my1stnode);
+document.querySelector("#grid-item1").appendChild(my1stnode);
 
 function welcomeToWork1() {
     my1stnode.innerHTML = "( ദ്ദി ˙ᗜ˙ )";
@@ -36,7 +45,7 @@ mynode.innerHTML = "My drawing on Magic Miku";
 mynode.style.color = "blue";
 
 mynode.addEventListener("click", welcomeToWork2);
-document.querySelector("#work2").appendChild(mynode);
+document.querySelector("#grid-item2").appendChild(mynode);
 
 function welcomeToWork2() {
     mynode.innerHTML = "( ദ്ദി ˙ᗜ˙ )";
@@ -48,9 +57,8 @@ my3rdnode.innerHTML = "My black and white drawing";
 my3rdnode.style.color = "blue";
 
 my3rdnode.addEventListener("click", welcomeToWork3);
-document.querySelector("#work3").appendChild(my3rdnode);
+document.querySelector("#grid-item3").appendChild(my3rdnode);
 
 function welcomeToWork3() {
     my3rdnode.innerHTML = "( ദ്ദി ˙ᗜ˙ )";
 }
-    */

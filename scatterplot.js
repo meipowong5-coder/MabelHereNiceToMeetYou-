@@ -1,7 +1,7 @@
 // Set dimensions and margins
 const scatterMargin = { top: 50, right: 50, bottom: 80, left: 80 };
 const scatterWidth = 600 - scatterMargin.left - scatterMargin.right;
-const scatterHeight = 400 - scatterMargin.top - scatterMargin.bottom;
+const scatterHeight = 500 - scatterMargin.top - scatterMargin.bottom;
 
 // Data
 const scatterData = [

@@ -1,3 +1,8 @@
+html{
+    background-color: white;
+    scroll-behavior: smooth;
+}
+
 * {
     background-color: rgb(92, 165, 165);
     text-align: center;
@@ -93,6 +98,14 @@ button#hobby {
     color: black;
     background-color: antiquewhite;
 }
+
+button#bless {
+    border-radius: .5em;
+    font-size: 1.2em;
+    color: black;
+    background-color: antiquewhite;
+}
+
 
 .flex-container {
     display: flex;

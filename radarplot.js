@@ -1,7 +1,7 @@
 // Set dimensions and margins
-const width = 700; // Increased from 600
-const height = 700; // Increased from 600
-const radius = Math.min(width, height) / 2 - 50;
+const width = 600; // Increased from 600
+const height = 600; // Increased from 600
+const radius = Math.min(width, height) / 2-80;
 
 // Data with 15 attributes
 const data = [
