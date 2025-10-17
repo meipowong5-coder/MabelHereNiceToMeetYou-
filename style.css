@@ -106,6 +106,22 @@ button#bless {
     background-color: antiquewhite;
 }
 
+.grid-item1{  position: relative;
+  animation: myfirst 5s 1;
+  animation-fill-mode: forwards;
+}
+
+.grid-item2{  position: relative;
+  animation: myfirst 5s 1;
+  animation-fill-mode: forwards;
+}
+
+
+.grid-item3{  position: relative;
+  animation: myfirst 5s 1;
+   animation-fill-mode: forwards;
+}
+
 
 .flex-container {
     display: flex;
@@ -187,4 +203,12 @@ h1 {
 }
 .axis text {
     font-size: 12px;
+}
+
+@keyframes myfirst {
+  0%   {background: black; left: 0px; top: 0px;}
+  25%  {background: white; left: 200px; top: 0px;}
+  50%  {background: black; left: 200px; top: 200px;}
+  75%  {background: white; left: 0px; top: 200px;}
+  100% {background: black; left: 0px; top: 0px;}
 }
