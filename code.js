@@ -23,7 +23,7 @@ var button = document.querySelector("#bless");
 button.addEventListener("click", myOther2function);
 
 function myOther2function() {
-    alert("Have a nice day!XD");
+    alert("Have a nice day!0v0");
 }
 
 
