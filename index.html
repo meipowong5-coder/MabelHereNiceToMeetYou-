@@ -43,11 +43,11 @@
         <div class="gallery-track" id="gallery-track">
             <img src="twogirls.png" alt="twogirls" />
             <img src="miku.png" alt="miku" />
-            <img src="bandw.jpeg" alt="bandw" />
+            <img src="bandw.png" alt="bandw" />
             <!-- Duplicate for loop -->
             <img src="twogirls.png" alt="twogirls" />
             <img src="miku.png" alt="miku" />
-            <img src="bandw.jpeg" alt="bandw" />
+            <img src="bandw.png" alt="bandw" />
         </div>
     </div>
 </section>
@@ -85,13 +85,12 @@
     const allWorks = [
         { src: "twogirls.png", name: "twogirls" },
         { src: "miku.png", name: "miku" },
-        { src: "bandw.jpeg", name: "bandw" }
+        { src: "bandw.png", name: "bandw" }
     ];
     const grid = document.getElementById('work-grid');
-    allWorks.forEach((work, i) => {
+    allWorks.forEach(work => {
         const div = document.createElement('div');
         div.className = 'work-item';
-        div.style.transitionDelay = `${i * 0.2}s`; // Row pop-up effect
         div.innerHTML = `
             <img src="${work.src}" alt="${work.name}" />
             <div class="work-label">${work.name}</div>
@@ -109,7 +108,11 @@
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.work-item').forEach(item => observer.observe(item));
+    document.querySelectorAll('.work-item').forEach((item, i) => {
+        const row = Math.floor(i / 3);  // Group by row for pop-up effect
+        item.style.transitionDelay = `${row * 0.5}s`;  // 0.5s delay per row
+        observer.observe(item);
+    });
 </script>
 </body>
 </html>
