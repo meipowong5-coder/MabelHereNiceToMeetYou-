@@ -1,86 +1,115 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link href="style.css" rel="stylesheet" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MabelWepage</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mabel Wong – Creative Technologist</title>
+
+    <!-- D3 + TopoJSON -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/topojson@3"></script>
-    <link rel="stylesheet" href="style.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Load D3 scripts after DOM -->
+    <script defer src="src/treemap.js"></script>
+    <script defer src="src/node-link_diagram.js"></script>
 </head>
 
 <body>
-    <div id="main" class="box">
-        <div>꧁⎝ 𓆩༺✧༻𓆪 ⎠꧂
-        </div>
-        <div>
+<!-- Buttons above first container -->
+<div class="top-buttons">
+    <a href="#skills" class="intro_button">About Me</a>
+    <a href="#network" class="intro_button">My Skills</a>
+</div>
 
-            ⎛⎝ ≽ > ⩊ < ≼ ⎠⎞ <br>meow</div>
-        <div>꧁⎝ 𓆩༺✧༻𓆪 ⎠꧂
+<!------------------- HERO ------------------->
+<section class="container-box">
+    <div class="hero-grid">
+        <img src="me.jpg" alt="Mabel Wong" class="hero-photo" loading="lazy" />
+        <div class="hero-text">
+            <h1 class="hero-name">Wong Mei Po, Mabel</h1>
+            <p class="hero-bio">Creative technologist blending code, art, and interaction.</p>
+            <div class="hero-hashtags">#CreativeTech #AR #DataVis #Processing #TouchDesigner #D3js</div>
         </div>
     </div>
-    <!--<h1>This is a title</h1>-->
-    <header>
-        <div>
+</section>
 
-            <!--comment-->
-            <nav id="main">
-                <ul>
-                    <h2>Wong Mei Po, Mabel</h2>
-                    <a id="aboutme" href="#vis-scatterplot">About me</a>
-                    <a id="subpage" href="mywork.html">My Work</a>
-                    <button id="bless">Press me to get a bless</button>
-                </ul>
-            </nav>
-
-            <div class="flex-container">
-                <!--<p>Wish you have a nice day.</p>-->
-                <img src="me.jpg" width="300" height="300" />
-
-
-                <p>Nice to meet you :)</p>
-                <a class="intro_button"
-                    href="https://youtube.com/playlist?list=PLjFjwa9nwKrfrVHYNUnuk6uwPr4joojPW&si=VSjGRqPvFQ_CKn_a">Visit
-                    葉月ゆら ⬅️ my favourite singer</a>
-            </div>
+<!------------------- RECENT WORK – 3 Images ------------------->
+<section class="container-box">
+    <h2 class="gallery-title">Recent Work</h2>
+    <div class="gallery-scroll">
+        <div class="gallery-track" id="gallery-track">
+            <img src="twogirls.png" alt="twogirls" />
+            <img src="miku.png" alt="miku" />
+            <img src="bandw.jpeg" alt="bandw" />
+            <!-- Duplicate for loop -->
+            <img src="twogirls.png" alt="twogirls" />
+            <img src="miku.png" alt="miku" />
+            <img src="bandw.jpeg" alt="bandw" />
         </div>
-    </header>
-
-
-    <audio controls>
-        <source src="intrumental.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-
-    <!--<div class="grid-container">
-        <div id="work1" class="grid-item1">My work1
-            <img src="twogirls.png" width="350" />
-        </div>
-        <div id="work2" class="grid-item2">My work2
-            <img src="miku.png" width="250" />
-        </div>
-        <div id="work3" class="grid-item3">My work3
-            <img src="bandw.jpeg" width="320" />
-        </div>-->
-
-    <section id="vis-scatterplot"></section>
-    <section id="vis-radarplot"></section>
-    <section id="vis-treemap"></section>
-    <section id="vis-node-link_diagram"></section>
-    <section id="vis-adjacencymatrix"></section>
-    <section id="vis-dotdensity"></section>
-    <section id="vis-symbolMap"></section>
-    
     </div>
-    <script src="code.js"></script>
-    <script src="src/radarplot.js"></script>
-    <script src="src/scatterplot.js"></script>
-    <script src="src/treemap.js"></script>
-    <script src="src/node-link_diagram.js"></script>
-    <script src="src/adjacencymatrix.js"></script>
-    <script src="src/dotdensity.js"></script>
-    <script src="src/symbolMap.js"></script>
+</section>
+
+<!------------------- SKILL TREE ------------------->
+<section id="skills" class="container-box">
+    <div id="vis-treemap" class="chart-lg"></div>
+</section>
+
+<!------------------- NETWORK ------------------->
+<section id="network" class="container-box">
+    <div id="vis-node-link_diagram" class="chart-lg"></div>
+</section>
+
+<!------------------- ALL WORKS GRID ------------------->
+<section class="container-box">
+    <h2 class="gallery-title">All Works</h2>
+    <div class="work-grid" id="work-grid"></div>
+</section>
+
+<script>
+    // === RECENT WORK: Auto-scroll ===
+    const track = document.getElementById('gallery-track');
+    let pos = 0;
+    let speed = 1;
+    function scrollGallery() {
+        pos += speed;
+        if (pos >= track.scrollWidth / 2) pos = 0;
+        track.style.transform = `translateX(-${pos}px)`;
+        requestAnimationFrame(scrollGallery);
+    }
+    scrollGallery();
+
+    // === ALL WORKS GRID ===
+    const allWorks = [
+        { src: "twogirls.png", name: "twogirls" },
+        { src: "miku.png", name: "miku" },
+        { src: "bandw.jpeg", name: "bandw" }
+    ];
+    const grid = document.getElementById('work-grid');
+    allWorks.forEach((work, i) => {
+        const div = document.createElement('div');
+        div.className = 'work-item';
+        div.style.transitionDelay = `${i * 0.2}s`; // Row pop-up effect
+        div.innerHTML = `
+            <img src="${work.src}" alt="${work.name}" />
+            <div class="work-label">${work.name}</div>
+        `;
+        grid.appendChild(div);
+    });
+
+    // === SCROLL POP ===
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('pop');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.work-item').forEach(item => observer.observe(item));
+</script>
 </body>
-
 </html>

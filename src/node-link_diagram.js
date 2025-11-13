@@ -85,30 +85,30 @@
         .style("font-weight", "bold")
         .text("Artworks Network by Software");
 
-    // Force simulation with adjusted parameters for closer clustering and quadrant positioning
+// Force simulation with adjusted parameters for closer clustering and quadrant positioning
     const simulation = d3.forceSimulation()
-        .force("link", d3.forceLink().id(d => d.id).distance(120).strength(0.3)) // Increased distance for spread out nodes
-        .force("charge", d3.forceManyBody().strength(-300)) // Increased repulsion for more space
+        .force("link", d3.forceLink().id(d => d.id).distance(250).strength(0.5)) // Reduced distance
+        .force("charge", d3.forceManyBody().strength(-1000)) // Stronger repulsion
         .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("collision", d3.forceCollide().radius(35)) // Increased radius to prevent overlap
+        .force("collision", d3.forceCollide().radius(30)) // Smaller radius
         .force("x", d3.forceX().x(d => {
             switch (d.software) {
-                case "Procreate": return width / 4; // Top left
-                case "Processing": return 3 * width / 4; // Top right
-                case "Arduino": return width / 4; // Bottom left
-                case "TouchDesigner": return 3 * width / 4; // Bottom right
+                case "Procreate":     return width * 0.;  // Closer to center
+                case "Processing":    return width * 0.35;  // Closer to center
+                case "Arduino":       return width * 0.;  // Closer
+                case "TouchDesigner": return width * 0.35;  // Closer
                 default: return width / 2;
             }
-        }).strength(0.3)) // Increased strength for positioning
+        }).strength(0.6)) // Stronger pull
         .force("y", d3.forceY().y(d => {
             switch (d.software) {
-                case "Procreate": return height / 4; // Top left
-                case "Processing": return height / 4; // Top right
-                case "Arduino": return height / 2 + height / 8; // Bottom left, moved up
-                case "TouchDesigner": return height / 2 + height / 8; // Bottom right, moved up
+                case "Procreate":     return height * 0.;  // Higher
+                case "Processing":    return height * 0.;  // Higher
+                case "Arduino":       return height * 0.25;  // Higher
+                case "TouchDesigner": return height * 0.25;  // Higher
                 default: return height / 2;
             }
-        }).strength(0.3)); // Increased strength for positioning
+        }).strength(0.6)); // Stronger pull
 
     // Tooltip
     const tooltip = d3.select("body").select(".tooltip").empty()
