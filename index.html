@@ -1,118 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mabel Wong – Creative Technologist</title>
-
-    <!-- D3 + TopoJSON -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mabel's Website</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://unpkg.com/topojson@3"></script>
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="style.css" />
-
-    <!-- Load D3 scripts after DOM -->
-    <script defer src="src/treemap.js"></script>
-    <script defer src="src/node-link_diagram.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-<!-- Buttons above first container -->
-<div class="top-buttons">
-    <a href="#skills" class="intro_button">About Me</a>
-    <a href="#network" class="intro_button">My Skills</a>
-</div>
+    <nav>
+        <ul>
+            <li><a href="#about-me">About Me</a></li>
+            <li><a href="#my-skills">My Skills</a></li>
+        </ul>
+    </nav>
 
-<!------------------- HERO ------------------->
-<section class="container-box">
-    <div class="hero-grid">
-        <img src="me.jpg" alt="Mabel Wong" class="hero-photo" loading="lazy" />
-        <div class="hero-text">
-            <h1 class="hero-name">Wong Mei Po, Mabel</h1>
-            <p class="hero-bio">Creative technologist blending code, art, and interaction.</p>
-            <div class="hero-hashtags">#CreativeTech #AR #DataVis #Processing #TouchDesigner #D3js</div>
+    <section class="container" id="personal">
+        <div class="personal-flex">
+            <img src="me.jpg" alt="Mabel Wong" class="personal-img">
+            <div class="personal-text">
+                <h1>Wong Mei Po, Mabel</h1>
+                <p>A creative digital artist and programmer exploring interactive media and machine learning.</p>
+                <div class="hashtags">#DigitalArt #InteractiveArt #Processing #Arduino #MachineLearning #TouchDesigner #GenerativeArt</div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!------------------- RECENT WORK – 3 Images ------------------->
-<section class="container-box">
-    <h2 class="gallery-title">Recent Work</h2>
-    <div class="gallery-scroll">
-        <div class="gallery-track" id="gallery-track">
-            <img src="twogirls.png" alt="twogirls" />
-            <img src="miku.png" alt="miku" />
-            <img src="bandw.png" alt="bandw" />
-            <!-- Duplicate for loop -->
-            <img src="twogirls.png" alt="twogirls" />
-            <img src="miku.png" alt="miku" />
-            <img src="bandw.png" alt="bandw" />
+    <section class="container" id="recent-work">
+        <h2>Recent Work</h2>
+        <div class="scroll-container">
+            <img src="twogirls.png" alt="Two Girls">
+            <img src="miku.png" alt="Miku">
+            <img src="bandw.jpeg" alt="Black and White">
         </div>
-    </div>
-</section>
+    </section>
 
-<!------------------- SKILL TREE ------------------->
-<section id="skills" class="container-box">
-    <div id="vis-treemap" class="chart-lg"></div>
-</section>
+    <section class="container" id="all-works">
+        <h2>All Works</h2>
+        <div class="works-grid">
+            <div class="work-item hidden" style="background-image: url('https://i.ytimg.com/vi/8jxDlfF7Hkc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBdD1bBpyha8I5ISml9_3VWm3nXtg')">
+                <span>Video jigsaw puzzle</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://t3.ftcdn.net/jpg/14/82/36/08/360_F_1482360864_hrc9OSiw1X4HaJGHJsD5kmWt4TUqiFEA.jpg')">
+                <span>Magic circle ambient art</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://cdn2.unrealengine.com/developerinterview-rhythm-of-the-universe-15-1920x1080-521915807.jpg?resize=1&w=1920')">
+                <span>Universe x Rhythm Survival Game</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://img.youtube.com/vi/YH7MAvmmtLc/0.jpg')">
+                <span>“ (˙◠˙) ” Converter</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://img.youtube.com/vi/x-KNQcRHjOo/0.jpg')">
+                <span>Onyx Veil-The Abyss of Amnesia</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://framerusercontent.com/images/y9gAy7vMuNvFHNBqse4HRp1OL4w.webp?width=1300&height=952')">
+                <span>Image processing algorithms</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://i.ytimg.com/vi/pwKM5PIFcBw/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBrjgigwROLzDlJ-6vhd8fvc7NJeQ')">
+                <span>Video processing</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://imagedelivery.net/Glro1K7g2YDmMM81dWQEfw/d317daa7-a738-4bb9-c73a-9e07929d6700/w=undefined,h=undefined,fit=cover')">
+                <span>AR game</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://content.instructables.com/FFV/ABUD/G1VDTLAQ/FFVABUDG1VDTLAQ.jpg?auto=webp')">
+                <span>Rhythm Secret Knock</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://hackster.imgix.net/uploads/attachments/482826/apex_jkWB36Lh9q.jpg?auto=compress&w=1600&h=1200&fit=min&fm=jpg')">
+                <span>Mood Expressor</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41598-025-95819-9/MediaObjects/41598_2025_95819_Fig1_HTML.png')">
+                <span>Machine Learning: Art style identifying</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://i.ytimg.com/vi/HxD-M-jTmEA/hqdefault.jpg')">
+                <span>Machine Learning: Anime Character || Art Style Generator</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://contemporaryartsociety.org/sites/default/files/images/Ali_Cherri_How_I_Am_Monument_084_0.jpg')">
+                <span>“The Window Seat of Memory” with MemoralLens</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://thumbs.dreamstime.com/b/creative-chromatic-fractal-art-magnificent-symmetrical-abstract-background-vivid-fractal-art-glowing-symmetrical-patterns-402995634.jpg')">
+                <span>Chromatic Fractals</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://chicagomaroon.com/wp-content/uploads/2022/02/BK_ArtistRender_press.0-900x506.jpg')">
+                <span>Barbara Kruger Inspired Animation</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://www.researchgate.net/publication/356564616/figure/fig1/AS:1103072990371846@1640004503984/Recent-examples-of-computational-arts.jpg')">
+                <span>Computational Image Collage</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://www.artpapers.org/wp-content/uploads/2018/03/yhchi_003-e1525200770884.jpg')">
+                <span>Generative Visual-Text Music Response</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://i0.wp.com/ictnews.org/wp-content/uploads/2024/11/artist-jeffrey-gibson-installation-view-with-sculptures-and-wall-art-at-venice-biennale-courtesy-photojpg_03.jpg?fit=1280%2C853&ssl=1')">
+                <span>Animated Alphabets Generative Animation</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://liu.se/dfsmedia/dd35e243dfb7406993c1815aaf88a675/67915-50065/sonifiering-sound-of-art-niklas-ronnberg-2023-01-12-tb-dsc-4079-1?as=1&w=640&h=360&cr=1&crw=640&crh=360&bc=%23ffffff')">
+                <span>Drawing sonifier</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://www.purdue.edu/hla/sites/hla-happenings/wp-content/uploads/sites/14/2022/04/image-2-1024x576.jpg')">
+                <span>You Have the Power to Plant Seeds in Others’ Hearts</span>
+            </div>
+        </div>
+    </section>
 
-<!------------------- NETWORK ------------------->
-<section id="network" class="container-box">
-    <div id="vis-node-link_diagram" class="chart-lg"></div>
-</section>
+    <section id="vis-scatterplot"></section>
+    <section id="vis-radarplot"></section>
+    <section id="vis-treemap" id="about-me"></section>
+    <section id="vis-node-link_diagram" id="my-skills"></section>
+    <section id="vis-adjacencymatrix"></section>
+    <section id="vis-dotdensity"></section>
+    <section id="vis-symbolMap"></section>
 
-<!------------------- ALL WORKS GRID ------------------->
-<section class="container-box">
-    <h2 class="gallery-title">All Works</h2>
-    <div class="work-grid" id="work-grid"></div>
-</section>
+    <script src="src/radarplot.js"></script>
+    <script src="src/scatterplot.js"></script>
+    <script src="src/treemap.js"></script>
+    <script src="src/node-link_diagram.js"></script>
+    <script src="src/adjacencymatrix.js"></script>
+    <script src="src/dotdensity.js"></script>
+    <script src="src/symbolMap.js"></script>
+    <script>
+        // Auto scroll for recent work
+        const scrollContainer = document.querySelector('.scroll-container');
+        if (scrollContainer) {
+            let scrollAmount = 0;
+            const imageWidth = 320; // Adjusted slightly for gap
+            const autoScroll = setInterval(() => {
+                scrollAmount += imageWidth;
+                if (scrollAmount >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
+                    scrollAmount = 0;
+                }
+                scrollContainer.scrollTo({
+                    left: scrollAmount,
+                    behavior: 'smooth'
+                });
+            }, 5000);
+        }
 
-<script>
-    // === RECENT WORK: Auto-scroll ===
-    const track = document.getElementById('gallery-track');
-    let pos = 0;
-    let speed = 1;
-    function scrollGallery() {
-        pos += speed;
-        if (pos >= track.scrollWidth / 2) pos = 0;
-        track.style.transform = `translateX(-${pos}px)`;
-        requestAnimationFrame(scrollGallery);
-    }
-    scrollGallery();
-
-    // === ALL WORKS GRID ===
-    const allWorks = [
-        { src: "twogirls.png", name: "twogirls" },
-        { src: "miku.png", name: "miku" },
-        { src: "bandw.png", name: "bandw" }
-    ];
-    const grid = document.getElementById('work-grid');
-    allWorks.forEach(work => {
-        const div = document.createElement('div');
-        div.className = 'work-item';
-        div.innerHTML = `
-            <img src="${work.src}" alt="${work.name}" />
-            <div class="work-label">${work.name}</div>
-        `;
-        grid.appendChild(div);
-    });
-
-    // === SCROLL POP ===
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('pop');
-                observer.unobserve(entry.target);
-            }
+        // Intersection observer for pop-up animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
         });
-    }, { threshold: 0.1 });
 
-    document.querySelectorAll('.work-item').forEach((item, i) => {
-        const row = Math.floor(i / 3);  // Group by row for pop-up effect
-        item.style.transitionDelay = `${row * 0.5}s`;  // 0.5s delay per row
-        observer.observe(item);
-    });
-</script>
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
 </body>
 </html>
