@@ -85,16 +85,20 @@ nav a {
 
 .scroll-container {
     display: flex;
-    overflow-x: auto;
-    gap: 10px;
+    overflow-x: hidden;
+    width: 600px;
+    margin: 0 auto;
+    gap: 0;
     padding-bottom: 10px;
 }
 
 .scroll-container img {
-    width: 300px;
+    width: 600px;
     height: 300px;
     object-fit: cover;
+    object-position: bottom;
     border-radius: 10px;
+    flex-shrink: 0;
 }
 
 #all-works h2 {
@@ -261,4 +265,14 @@ nav a {
     66% { 
         transform: translateY(1px) translateX(-1px); 
     }
+}
+
+#vis-node-link_diagram {
+    width: 850px;
+    max-width: 100%;
+    margin: 3em auto;
+    padding: 20px;
+    background-color: rgb(92, 165, 165);
+    border: dotted antiquewhite 5px;
+    border-radius: 3em;
 }

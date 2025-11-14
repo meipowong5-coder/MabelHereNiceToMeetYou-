@@ -1,36 +1,101 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link href="style.css" rel="stylesheet" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MabelSubpage</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <title>All Works - Mabel's Website</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div id="main" class="box">
-        <div>꧁⎝ 𓆩༺✧༻𓆪 ⎠꧂
-        </div>
-        <div>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+        </ul>
+    </nav>
 
-            ⎛⎝ ≽ > ⩊ < ≼ ⎠⎞ <br>meow</div>
-        <div>꧁⎝ 𓆩༺✧༻𓆪 ⎠꧂
+    <section class="container" id="all-works">
+        <h2>All Works</h2>
+        <div class="works-grid">
+            <div class="work-item hidden" style="background-image: url('images/Video jigsaw puzzle.png')">
+                <span>Video jigsaw puzzle</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('Magic circle ambient art.png')">
+                <span>Magic circle ambient art</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Universe x Rhythm Survival Game.png')">
+                <span>Universe x Rhythm Survival Game</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://img.youtube.com/vi/YH7MAvmmtLc/0.jpg')">
+                <span>“ (˙◠˙) ” Converter</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://img.youtube.com/vi/x-KNQcRHjOo/0.jpg')">
+                <span>Onyx Veil-The Abyss of Amnesia</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Edges highlighted effect using Convolution Kernels.png')">
+                <span>Edges highlighted effect using Convolution Kernels-Image processing algorithms</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Pokemon card effect using 3D pixels.png')">
+                <span>Pokemon card effect using 3D pixels-Image processing algorithms</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Splitting RGB effect using the RGB value extracted.png')">
+                <span>Splitting RGB effect using the RGB value extracted-Image processing algorithms</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Gothic stained glass windows using Mosaic concept.png')">
+                <span>Gothic stained glass windows using Mosaic concept-Image processing algorithms</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Temporal Face-Mapped Video Playback.png')">
+                <span>Temporal Face-Mapped Video Playback-Video processing</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Pop Cat Defense.png')">
+                <span>Pop Cat Defense: Motion-Activated Gameplay-Video processing</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Move to Support Your Idol!.png')">
+                <span>Move to Support Your Idol!-Video processing</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/AlchemAR.png')">
+                <span>AlchemAR-AR game</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Rhythm Trainer.png')">
+                <span>Rhythm Trainer</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Emoji Board.png')">
+                <span>Emoji Board</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Anime Character _ Art Style Generator.png')">
+                <span>Machine Learning: Anime Character || Art Style Generator</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/MemoraLens.png')">
+                <span>“The Window Seat of Memory” with MemoralLens</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Chromatic Fractals.png')">
+                <span>Chromatic Fractals</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/Computational image collage work.png')">
+                <span>Computational image collage work</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('images/VisualText.png')">
+                <span>VisualText</span>
+            </div>
+            <div class="work-item hidden" style="background-image: url('https://isea2023.ensad.fr/Motherplant.png')">
+                <span>You Have the Power to Plant Seeds in Others’ Hearts</span>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <div  class="grid-container">
-        <div id="work1_intro" class="grid-item1">My drawing on two girls
-            <img src="twogirls.png" width="350" />
-        </div>
-        <div id="work2_intro" class="grid-item2">My drawing on Magic Miku
-            <img src="miku.png" width="250" />
-        </div>
-        <div id="work3_intro" class="grid-item3">My black and white drawing
-            <img src="bandw.jpeg" width="320" />
-        </div>
-        <script src="codeMywork.js"></script>
+    <script>
+        // Intersection observer for pop-up animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show');
+                }
+            });
+        });
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+    </script>
 </body>
-
 </html>
