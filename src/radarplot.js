@@ -1,133 +1,215 @@
-(function () {
 // Set dimensions and margins
-const width = 600; // Increased from 600
-const height = 600; // Increased from 600
-const radius = Math.min(width, height) / 2 - 80;
+const width = 600;
+const height = 600;
+const margin = { top: 30, right: 120, bottom: 30, left: 120 };
 
-    // Data with 15 attributes
-    const data = [
-        { attribute: "Wisdom", value: 7 },
-        { attribute: "Luck", value: 7 },
-        { attribute: "Patience", value: 6.5 },
-        { attribute: "Health", value: 7 },
-        { attribute: "Resilience", value: 6.5 },
-        { attribute: "Empathy", value: 6 },
-        { attribute: "Creativity", value: 5 },
-        { attribute: "Discipline", value: 8.5 },
-        { attribute: "Adapt.", value: 8 },
-        { attribute: "Confidence", value: 6.5 },
-        { attribute: "Communication skills", value: 7 },
-        { attribute: "Curiosity", value: 7 },
-        { attribute: "Time Mgmt", value: 7.5 },
-        { attribute: "Social", value: 6 },
-        { attribute: "Mindful.", value: 5.5 }
-    ];
+// Create SVG container
+const svg = d3.select("#vis-treemap")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
 
-    // Create SVG container
-    const svg = d3.select("#vis-radarplot")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .append("g")
-        .attr("transform", `translate(${width / 2}, ${height / 2})`)
-        .attr("class", "radar-chart");
+// Add title
+svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", margin.top / 2)
+    .attr("text-anchor", "middle")
+    .style("font-size", "16px")
+    .style("font-weight", "bold")
+    .text("My Skill and Ability Radar");
 
-    // Add title
-    svg.append("text")
-        .attr("x", 0)
-        .attr("y", -height / 2 + 20)
-        .attr("text-anchor", "middle")
-        .style("font-size", "16px")
-        .style("font-weight", "bold")
-        .text("My Abilities and Qualities Scatterplot Radarplot");
+// Hierarchical data (16 attributes)
+const treeData = {
+    name: "Mabel Wong Mei Po",
+    children: [
+        {
+            name: "Personal Qualities",
+            children: [
+                { name: "Wisdom", score: 7 },
+                { name: "Luck", score: 7 },
+                { name: "Patience", score: 6.5 },
+                { name: "Health", score: 7 },
+                { name: "Resilience", score: 6.5 },
+                { name: "Confidence", score: 6.5 },
+                { name: "Curiosity", score: 7 },
+                { name: "Mindful.", score: 5.5 }
+            ]
+        },
+        {
+            name: "Social Skills",
+            children: [
+                { name: "Empathy", score: 6 },
+                { name: "Comm.", score: 7 },
+                { name: "Social", score: 6 }
+            ]
+        },
+        {
+            name: "Professional Skills",
+            children: [
+                { name: "Creativity", score: 5 },
+                { name: "Discipline", score: 8.5 },
+                { name: "Adapt.", score: 8 },
+                { name: "Time Mgmt", score: 7.5 },
+                { name: "Focus", score: 6.5 }
+            ]
+        }
+    ]
+};
 
-    // Scales
-    const rScale = d3.scaleLinear()
-        .domain([0, 10])
-        .range([0, radius]);
+// Flatten and sort leaves by score descending
+const allLeaves = [];
+treeData.children.forEach(category => {
+    category.children.forEach(skill => {
+        allLeaves.push(skill);
+    });
+});
+allLeaves.sort((a, b) => b.score - a.score);
 
-    const angleScale = d3.scalePoint()
-        .domain(data.map(d => d.attribute).concat([data[0].attribute])) // Ensure closed loop
-        .range([0, 2 * Math.PI]);
+// Features and scores
+const features = allLeaves.map(d => d.name);
+const scores = {};
+allLeaves.forEach(d => {
+    scores[d.name] = d.score;
+});
+const data = [scores];
 
-    // Radial line generator
-    const radialLine = d3.lineRadial()
-        .angle(d => angleScale(d.attribute))
-        .radius(d => rScale(d.value))
-        .curve(d3.curveLinearClosed);
+// Center and radius
+const centerX = width / 2;
+const centerY = height / 2;
+const radius = Math.min(width / 2 - Math.max(margin.left, margin.right), height / 2 - Math.max(margin.top, margin.bottom));
 
-    // Draw grid (concentric circles for value levels)
-    const levels = [0, 2, 4, 6, 8, 10];
-    svg.selectAll(".grid-circle")
-        .data(levels)
-        .enter()
-        .append("circle")
-        .attr("class", "grid-circle")
-        .attr("r", d => rScale(d))
-        .style("fill", "none")
-        .style("stroke", "#ccc")
-        .style("stroke-dasharray", "2,2");
+// Radial scale
+const radialScale = d3.scaleLinear()
+    .domain([0, 10])
+    .range([0, radius]);
+const ticks = [2, 4, 6, 8, 10];
 
-    // Add score range labels (0–10) along the first axis (Wisdom)
-    svg.selectAll(".grid-label")
-        .data(levels)
-        .enter()
-        .append("text")
-        .attr("class", "grid-label")
-        .attr("x", d => rScale(d) * Math.cos(angleScale(data[0].attribute)))
-        .attr("y", d => rScale(d) * Math.sin(angleScale(data[0].attribute)))
-        .attr("dy", "0.35em")
-        .attr("text-anchor", angleScale(data[0].attribute) > Math.PI / 2 && angleScale(data[0].attribute) < 3 * Math.PI / 2 ? "end" : "start")
-        .style("font-size", "10px")
-        .text(d => d);
+// Plot gridlines (circles)
+svg.selectAll("circle")
+    .data(ticks)
+    .join("circle")
+    .attr("cx", centerX)
+    .attr("cy", centerY)
+    .attr("fill", "none")
+    .attr("stroke", "gray")
+    .attr("r", d => radialScale(d));
 
-    // Draw radial axes
-    svg.selectAll(".axis-line")
-        .data(data)
-        .enter()
-        .append("line")
-        .attr("class", "axis-line")
-        .attr("x1", 0)
-        .attr("y1", 0)
-        .attr("x2", d => rScale(10) * Math.cos(angleScale(d.attribute)))
-        .attr("y2", d => rScale(10) * Math.sin(angleScale(d.attribute)))
-        .style("stroke", "#ccc");
+// Plot tick labels (placed along the top axis)
+svg.selectAll(".ticklabel")
+    .data(ticks)
+    .join("text")
+    .attr("class", "ticklabel")
+    .attr("x", centerX + 5)
+    .attr("y", d => centerY - radialScale(d))
+    .style("font-size", "10px")
+    .text(d => d.toString());
 
-    // Add axis labels with smaller font size
-    svg.selectAll(".axis-label")
-        .data(data)
-        .enter()
-        .append("text")
-        .attr("class", "axis-label")
-        .attr("x", d => rScale(10.5) * Math.cos(angleScale(d.attribute)))
-        .attr("y", d => rScale(10.5) * Math.sin(angleScale(d.attribute)))
-        .attr("text-anchor", d => {
-            const angle = angleScale(d.attribute);
-            return angle > Math.PI / 2 && angle < 3 * Math.PI / 2 ? "end" : "start";
-        })
-        .attr("dy", "0.35em")
-        .style("font-size", "8px") // Reduced from 10px
-        .text(d => d.attribute);
+// Convert angle and value to SVG coordinates
+function angleToCoordinate(angle, value) {
+    const x = Math.cos(angle) * radialScale(value);
+    const y = Math.sin(angle) * radialScale(value);
+    return { x: centerX + x, y: centerY - y };
+}
 
-    // Plot data
-    svg.append("path")
-        .datum(data)
-        .attr("class", "radar-area")
-        .attr("d", radialLine)
-        .style("fill", "steelblue")
-        .style("fill-opacity", 0.3)
-        .style("stroke", "steelblue")
-        .style("stroke-width", 2);
+// Map features to angles and coordinates
+const featureData = features.map((f, i) => {
+    const angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
+    return {
+        name: f,
+        angle: angle,
+        line_coord: angleToCoordinate(angle, 10),
+        label_coord: angleToCoordinate(angle, 10.5)
+    };
+});
 
-    // Add data points with color-coding for ranking
-    svg.selectAll(".radar-dot")
-        .data(data)
-        .enter()
-        .append("circle")
-        .attr("class", "radar-dot")
-        .attr("cx", d => rScale(d.value) * Math.cos(angleScale(d.attribute)))
-        .attr("cy", d => rScale(d.value) * Math.sin(angleScale(d.attribute)))
-        .attr("r", 4)
-        .style("fill", d => d.value >= 7.5 ? "red" : "steelblue") // Highlight top attributes
-        .style("opacity", 0.7);
-})();
+// Draw axis lines
+svg.selectAll("line")
+    .data(featureData)
+    .join("line")
+    .attr("x1", centerX)
+    .attr("y1", centerY)
+    .attr("x2", d => d.line_coord.x)
+    .attr("y2", d => d.line_coord.y)
+    .attr("stroke", "black");
+
+// Draw axis labels
+svg.selectAll(".axislabel")
+    .data(featureData)
+    .join("text")
+    .attr("class", "axislabel")
+    .attr("x", d => d.label_coord.x)
+    .attr("y", d => d.label_coord.y)
+    .attr("text-anchor", "middle")
+    .style("font-size", "8px")
+    .text(d => d.name);
+
+// Get path coordinates for a data point (close the path)
+function getPathCoordinates(data_point) {
+    const coordinates = [];
+    for (let i = 0; i < features.length; i++) {
+        const ft_name = features[i];
+        const angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
+        coordinates.push(angleToCoordinate(angle, data_point[ft_name]));
+    }
+    coordinates.push(coordinates[0]); // Close the polygon
+    return coordinates;
+}
+
+// Define line generator
+const line = d3.line()
+    .x(d => d.x)
+    .y(d => d.y);
+
+// Draw data path
+svg.selectAll("path")
+    .data(data)
+    .join("path")
+    .datum(d => getPathCoordinates(d))
+    .attr("d", line)
+    .attr("stroke-width", 3)
+    .attr("stroke", "steelblue")
+    .attr("fill", "steelblue")
+    .attr("stroke-opacity", 1)
+    .attr("opacity", 0.5);
+
+// Prepare point data for tooltips and circles
+const pointData = [];
+for (let i = 0; i < features.length; i++) {
+    const ft_name = features[i];
+    const value = data[0][ft_name];
+    const angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
+    const coord = angleToCoordinate(angle, value);
+    pointData.push({ name: ft_name, value, coord });
+}
+
+// Color scale for points
+const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+// Tooltip
+const tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0)
+    .style("position", "absolute")
+    .style("background", "lightgray")
+    .style("padding", "5px")
+    .style("border-radius", "5px");
+
+// Draw points with tooltips
+svg.selectAll(".point")
+    .data(pointData)
+    .join("circle")
+    .attr("class", "point")
+    .attr("cx", d => d.coord.x)
+    .attr("cy", d => d.coord.y)
+    .attr("r", d => 5 + (d.value - 5))
+    .style("fill", d => colorScale(d.value / 10))
+    .style("stroke", "#fff")
+    .on("mouseover", (event, d) => {
+        tooltip.style("opacity", 1)
+            .html(`${d.name}: Score ${d.value}/10`)
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 10) + "px");
+    })
+    .on("mouseout", () => {
+        tooltip.style("opacity", 0);
+    });

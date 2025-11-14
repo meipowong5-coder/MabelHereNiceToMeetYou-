@@ -7,18 +7,16 @@ const margin = { top: 30, right: 120, bottom: 30, left: 120 };
 const svg = d3.select("#vis-treemap")
     .append("svg")
     .attr("width", width)
-    .attr("height", height)
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+    .attr("height", height);
 
 // Add title
 svg.append("text")
-    .attr("x", (width - margin.left - margin.right) / 2)
-    .attr("y", -10)
+    .attr("x", width / 2)
+    .attr("y", margin.top / 2)
     .attr("text-anchor", "middle")
     .style("font-size", "16px")
     .style("font-weight", "bold")
-    .text("My Skill and Ability Tree");
+    .text("My Skill and Ability Radar");
 
 // Hierarchical data (16 attributes)
 const treeData = {
@@ -58,144 +56,160 @@ const treeData = {
     ]
 };
 
-// Create hierarchy
-const root = d3.hierarchy(treeData)
-    .sort((a, b) => d3.descending(a.data.score, b.data.score)); // Sort by score for ranking
+// Flatten and sort leaves by score descending
+const allLeaves = [];
+treeData.children.forEach(category => {
+    category.children.forEach(skill => {
+        allLeaves.push(skill);
+    });
+});
+allLeaves.sort((a, b) => b.score - a.score);
 
-root.each(d => {
-    d._children = d.children; // Store children for collapsing
+// Features and scores
+const features = allLeaves.map(d => d.name);
+const scores = {};
+allLeaves.forEach(d => {
+    scores[d.name] = d.score;
+});
+const data = [scores];
+
+// Center and radius
+const centerX = width / 2;
+const centerY = height / 2;
+const radius = Math.min(width / 2 - Math.max(margin.left, margin.right), height / 2 - Math.max(margin.top, margin.bottom));
+
+// Radial scale
+const radialScale = d3.scaleLinear()
+    .domain([0, 10])
+    .range([0, radius]);
+const ticks = [2, 4, 6, 8, 10];
+
+// Plot gridlines (circles)
+svg.selectAll("circle")
+    .data(ticks)
+    .join("circle")
+    .attr("cx", centerX)
+    .attr("cy", centerY)
+    .attr("fill", "none")
+    .attr("stroke", "gray")
+    .attr("r", d => radialScale(d));
+
+// Plot tick labels (placed along the top axis)
+svg.selectAll(".ticklabel")
+    .data(ticks)
+    .join("text")
+    .attr("class", "ticklabel")
+    .attr("x", centerX + 5)
+    .attr("y", d => centerY - radialScale(d))
+    .style("font-size", "10px")
+    .text(d => d.toString());
+
+// Convert angle and value to SVG coordinates
+function angleToCoordinate(angle, value) {
+    const x = Math.cos(angle) * radialScale(value);
+    const y = Math.sin(angle) * radialScale(value);
+    return { x: centerX + x, y: centerY - y };
+}
+
+// Map features to angles and coordinates
+const featureData = features.map((f, i) => {
+    const angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
+    return {
+        name: f,
+        angle: angle,
+        line_coord: angleToCoordinate(angle, 10),
+        label_coord: angleToCoordinate(angle, 10.5)
+    };
 });
 
-// Initialize tree layout
-const treeLayout = d3.tree().size([height - margin.top - margin.bottom, width - margin.left - margin.right]);
+// Draw axis lines
+svg.selectAll("line")
+    .data(featureData)
+    .join("line")
+    .attr("x1", centerX)
+    .attr("y1", centerY)
+    .attr("x2", d => d.line_coord.x)
+    .attr("y2", d => d.line_coord.y)
+    .attr("stroke", "black");
 
-// Color scale for categories
+// Draw axis labels
+svg.selectAll(".axislabel")
+    .data(featureData)
+    .join("text")
+    .attr("class", "axislabel")
+    .attr("x", d => d.label_coord.x)
+    .attr("y", d => d.label_coord.y)
+    .attr("text-anchor", "middle")
+    .style("font-size", "8px")
+    .text(d => d.name);
+
+// Get path coordinates for a data point (close the path)
+function getPathCoordinates(data_point) {
+    const coordinates = [];
+    for (let i = 0; i < features.length; i++) {
+        const ft_name = features[i];
+        const angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
+        coordinates.push(angleToCoordinate(angle, data_point[ft_name]));
+    }
+    coordinates.push(coordinates[0]); // Close the polygon
+    return coordinates;
+}
+
+// Define line generator
+const line = d3.line()
+    .x(d => d.x)
+    .y(d => d.y);
+
+// Draw data path
+svg.selectAll("path")
+    .data(data)
+    .join("path")
+    .datum(d => getPathCoordinates(d))
+    .attr("d", line)
+    .attr("stroke-width", 3)
+    .attr("stroke", "steelblue")
+    .attr("fill", "steelblue")
+    .attr("stroke-opacity", 1)
+    .attr("opacity", 0.5);
+
+// Prepare point data for tooltips and circles
+const pointData = [];
+for (let i = 0; i < features.length; i++) {
+    const ft_name = features[i];
+    const value = data[0][ft_name];
+    const angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
+    const coord = angleToCoordinate(angle, value);
+    pointData.push({ name: ft_name, value, coord });
+}
+
+// Color scale for points
 const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
-// Update function for collapsible tree
-function update(source) {
-    const duration = 750;
-    const treeNodes = treeLayout(root).descendants();
-    const treeLinks = treeLayout(root).links();
+// Tooltip
+const tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0)
+    .style("position", "absolute")
+    .style("background", "lightgray")
+    .style("padding", "5px")
+    .style("border-radius", "5px");
 
-    // Normalize node positions
-    treeNodes.forEach(d => { d.y = d.depth * 180; });
-
-    // Update nodes
-    const node = svg.selectAll(".node")
-        .data(treeNodes, d => d.id || (d.id = ++i));
-
-    const nodeEnter = node.enter()
-        .append("g")
-        .attr("class", "node")
-        .attr("transform", d => `translate(${source.y0 || 0},${source.x0 || 0})`)
-        .on("click", (event, d) => {
-            if (d.children) {
-                d._children = d.children;
-                d.children = null;
-            } else {
-                d.children = d._children;
-                d._children = null;
-            }
-            update(d);
-        });
-
-    nodeEnter.append("circle")
-        .attr("r", 1e-6)
-        .style("fill", d => d.data.score ? colorScale(d.data.score / 10) : colorScale(d.depth))
-        .style("stroke", "#fff");
-
-    nodeEnter.append("text")
-        .attr("dy", ".35em")
-        .attr("x", d => d.children || d._children ? -13 : 13)
-        .attr("text-anchor", d => d.children || d._children ? "end" : "start")
-        .style("font-size", "8px")
-        .style("fill", "black")
-        .text(d => `${d.data.name}${d.data.score ? ` (${d.data.score})` : ""}`);
-
-    // Tooltip
-    const tooltip = d3.select("body").selectAll(".tooltip").data([0])
-        .enter().append("div")
-        .attr("class", "tooltip")
-        .style("opacity", 0)
-        .style("position", "absolute")
-        .style("background", "lightgray")
-        .style("padding", "5px")
-        .style("border-radius", "5px");
-
-    nodeEnter.on("mouseover", (event, d) => {
+// Draw points with tooltips
+svg.selectAll(".point")
+    .data(pointData)
+    .join("circle")
+    .attr("class", "point")
+    .attr("cx", d => d.coord.x)
+    .attr("cy", d => d.coord.y)
+    .attr("r", d => 5 + (d.value - 5))
+    .style("fill", d => colorScale(d.value / 10))
+    .style("stroke", "#fff")
+    .on("mouseover", (event, d) => {
         tooltip.style("opacity", 1)
-            .html(`${d.data.name}${d.data.score ? `: Score ${d.data.score}/10` : ""}`)
+            .html(`${d.name}: Score ${d.value}/10`)
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 10) + "px");
     })
     .on("mouseout", () => {
         tooltip.style("opacity", 0);
     });
-
-    // Update node positions
-    const nodeUpdate = node.merge(nodeEnter)
-        .transition()
-        .duration(duration)
-        .attr("transform", d => `translate(${d.y},${d.x})`);
-
-    nodeUpdate.select("circle")
-        .attr("r", d => d.data.score ? 5 + (d.data.score - 5) : 5) // Size by score
-        .style("fill", d => d.data.score ? colorScale(d.data.score / 10) : colorScale(d.depth));
-
-    nodeUpdate.select("text")
-        .style("fill-opacity", 1);
-
-    // Remove exiting nodes
-    const nodeExit = node.exit()
-        .transition()
-        .duration(duration)
-        .attr("transform", d => `translate(${source.y},${source.x})`)
-        .remove();
-
-    nodeExit.select("circle").attr("r", 1e-6);
-    nodeExit.select("text").style("fill-opacity", 1e-6);
-
-    // Update links
-    const link = svg.selectAll(".link")
-        .data(treeLinks, d => d.target.id);
-
-    const linkEnter = link.enter()
-        .append("path")
-        .attr("class", "link")
-        .attr("d", d3.linkHorizontal()
-            .x(d => d.y)
-            .y(d => d.x))
-        .style("fill", "none")
-        .style("stroke", "#ccc")
-        .style("stroke-width", "2px");
-
-    link.merge(linkEnter)
-        .transition()
-        .duration(duration)
-        .attr("d", d3.linkHorizontal()
-            .x(d => d.y)
-            .y(d => d.x));
-
-    link.exit()
-        .transition()
-        .duration(duration)
-        .attr("d", d3.linkHorizontal()
-            .x(d => source.y)
-            .y(d => source.x))
-        .remove();
-
-    // Store old positions for transition
-    treeNodes.forEach(d => {
-        d.x0 = d.x;
-        d.y0 = d.y;
-    });
-}
-
-// Initialize counter for node IDs
-let i = 0;
-
-// Initialize the tree
-root.x0 = height / 2;
-root.y0 = 0;
-update(root);
