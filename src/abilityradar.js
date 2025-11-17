@@ -1,7 +1,7 @@
 // Set dimensions and margins
-const width = 270;
-const height = 270;
-const margin = { top: 20, right: 30, bottom: 15, left: 30 };
+const width = 320; // Adjusted to fit the full panel width (350px - padding/margins)
+const height = 250;
+const margin = { top: 20, right: 60, bottom: 15, left: 60 };
 
 // Create SVG container
 const svg = d3.select("#vis-abilityradar")
@@ -14,7 +14,7 @@ svg.append("text")
     .attr("x", width / 2)
     .attr("y", margin.top / 2)
     .attr("text-anchor", "middle")
-    .style("font-size", "12px")
+    .style("font-size", "14px")
     .style("font-weight", "bold")
     .text("My Skill and Ability Radar");
 
@@ -56,11 +56,11 @@ const treeData = {
     ]
 };
 
-// Flatten and sort leaves by score descending
+// Flatten and sort leaves by score descending, preserving category
 const allLeaves = [];
 treeData.children.forEach(category => {
     category.children.forEach(skill => {
-        allLeaves.push(skill);
+        allLeaves.push({ ...skill, category: category.name });
     });
 });
 allLeaves.sort((a, b) => b.score - a.score);
@@ -73,10 +73,10 @@ allLeaves.forEach(d => {
 });
 const data = [scores];
 
-// Center and radius
-const centerX = width / 2;
+// Center and radius - shift plot left by 10px
+const centerX = width / 2 - 10;
 const centerY = height / 2;
-const radius = Math.min(width / 2 - Math.max(margin.left, margin.right), height / 2 - Math.max(margin.top, margin.bottom));
+const radius = Math.min((width / 2 - 10) - Math.max(margin.left, margin.right), height / 2 - Math.max(margin.top, margin.bottom));
 
 // Radial scale
 const radialScale = d3.scaleLinear()
@@ -101,7 +101,7 @@ svg.selectAll(".ticklabel")
     .attr("class", "ticklabel")
     .attr("x", centerX + 5)
     .attr("y", d => centerY - radialScale(d))
-    .style("font-size", "8px")
+    .style("font-size", "12px")
     .text(d => d.toString());
 
 // Convert angle and value to SVG coordinates
@@ -118,7 +118,7 @@ const featureData = features.map((f, i) => {
         name: f,
         angle: angle,
         line_coord: angleToCoordinate(angle, 10),
-        label_coord: angleToCoordinate(angle, 10.5)
+        label_coord: angleToCoordinate(angle, 11.5)  // Increased to move labels further out
     };
 });
 
@@ -140,7 +140,7 @@ svg.selectAll(".axislabel")
     .attr("x", d => d.label_coord.x)
     .attr("y", d => d.label_coord.y)
     .attr("text-anchor", "middle")
-    .style("font-size", "6px")
+    .style("font-size", "10px")
     .text(d => d.name);
 
 // Get path coordinates for a data point (close the path)
@@ -149,7 +149,8 @@ function getPathCoordinates(data_point) {
     for (let i = 0; i < features.length; i++) {
         const ft_name = features[i];
         const angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
-        coordinates.push(angleToCoordinate(angle, data_point[ft_name]));
+        const coord = angleToCoordinate(angle, data_point[ft_name]);
+        coordinates.push(coord);
     }
     coordinates.push(coordinates[0]); // Close the polygon
     return coordinates;
@@ -172,18 +173,21 @@ svg.selectAll("path")
     .attr("stroke-opacity", 1)
     .attr("opacity", 0.5);
 
-// Prepare point data for tooltips and circles
+// Prepare point data for tooltips and circles, with category
 const pointData = [];
 for (let i = 0; i < features.length; i++) {
-    const ft_name = features[i];
-    const value = data[0][ft_name];
+    const leaf = allLeaves[i];  // Preserve category from sorted allLeaves
+    const ft_name = leaf.name;
+    const value = leaf.score;
     const angle = (Math.PI / 2) + (2 * Math.PI * i / features.length);
     const coord = angleToCoordinate(angle, value);
-    pointData.push({ name: ft_name, value, coord });
+    pointData.push({ name: ft_name, value, coord, category: leaf.category });
 }
 
-// Color scale for points
-const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+// Category color scale for points
+const categoryColor = d3.scaleOrdinal()
+    .domain(["Personal Qualities", "Social Skills", "Professional Skills"])
+    .range(["green", "orange", "red"]);
 
 // Tooltip
 const tooltip = d3.select("body").append("div")
@@ -203,7 +207,7 @@ svg.selectAll(".point")
     .attr("cx", d => d.coord.x)
     .attr("cy", d => d.coord.y)
     .attr("r", d => 3 + (d.value - 5) * 0.5)
-    .style("fill", d => colorScale(d.value / 10))
+    .style("fill", d => categoryColor(d.category))
     .style("stroke", "#fff")
     .on("mouseover", (event, d) => {
         tooltip.style("opacity", 1)
@@ -213,4 +217,34 @@ svg.selectAll(".point")
     })
     .on("mouseout", () => {
         tooltip.style("opacity", 0);
+    });
+
+// Legend for categories - moved upper (increase subtraction to height - 50)
+const legendData = [
+    { color: "green", label: "Personal Qualities" },
+    { color: "orange", label: "Social Skills" },
+    { color: "red", label: "Professional Skills" }
+];
+
+const legend = svg.append("g")
+    .attr("class", "legend")
+    .attr("transform", `translate(${width - 80}, ${height - 50})`);  // Moved upper by increasing to -50
+
+legend.selectAll(".legend-item")
+    .data(legendData)
+    .join("g")
+    .attr("class", "legend-item")
+    .attr("transform", (d, i) => `translate(0, ${i * 15})`)
+    .each(function(d) {
+        d3.select(this).append("circle")
+            .attr("cx", 0)
+            .attr("cy", 5)
+            .attr("r", 4)
+            .style("fill", d.color);
+
+        d3.select(this).append("text")
+            .attr("x", 10)
+            .attr("y", 6)
+            .style("font-size", "8px")
+            .text(d.label);
     });
