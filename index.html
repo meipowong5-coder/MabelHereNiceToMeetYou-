@@ -11,36 +11,61 @@
 <body>
     <nav>
         <ul>
-            <li><a href="#vis-treemap">About Me</a></li>
+            <li><a href="#vis-abilityradar">About Me</a></li>
             <li><a href="#vis-node-link_diagram">My Skills</a></li>
             <li><a href="mywork.html">All Works</a></li>
         </ul>
     </nav>
 
-    <section class="container" id="personal">
-        <div class="personal-flex">
-            <img src="images/me.jpg" alt="Mabel Wong" class="personal-img">
-            <div class="personal-text">
-                <h1>Wong Mei Po, Mabel</h1>
-                <p>A creative digital artist and programmer exploring interactive media and machine learning.</p>
-                <div class="hashtags">#DigitalArt #InteractiveArt #Processing #Arduino #MachineLearning #TouchDesigner #GenerativeArt</div>
-            </div>
-        </div>
-    </section>
+    <div class="intro-section">
+        <div class="left-panel">
+            <section class="container" id="personal">
+                <div class="personal-flex">
+                    <img src="images/me.jpg" alt="Mabel Wong" class="personal-img">
+                    <div class="personal-text">
+                        <h1>Wong Mei Po, Mabel</h1>
+                        <p>A creative digital artist and programmer exploring interactive media and machine learning.</p>
+                        <div class="hashtags">#DigitalArt #InteractiveArt #Processing #Arduino #MachineLearning #TouchDesigner #GenerativeArt</div>
+                    </div>
+                </div>
+            </section>
 
-    <section class="container" id="recent-work">
-        <h2>Recent Work</h2>
-        <div class="scroll-container">
-            <img src="images/twogirls.png" alt="Two Girls">
-            <img src="images/miku.png" alt="Miku">
-            <img src="images/bandw.jpeg" alt="Black and White">
+            <section class="container" id="recent-work">
+                <h2>Recent Work</h2>
+                <div class="scroll-container">
+                    <img src="images/twogirls.png" alt="Two Girls">
+                    <img src="images/miku.png" alt="Miku">
+                    <img src="images/bandw.jpeg" alt="Black and White">
+                </div>
+            </section>
         </div>
-    </section>
 
-    <section id="vis-treemap"></section>
+        <div class="right-panel">
+            <section id="vis-abilityradar" class="vis-container"></section>
+
+            <section class="container" id="recent-activities">
+                <h2>Recent Activities</h2>
+                <div class="timeline-items">
+                    <div class="timeline-item">
+                        <span class="timeline-year">2024-2025</span>
+                        <p>Finalist, Disney Imaginations Hong Kong Competition – Co-created "Aquatica Utopia,"</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-year">2024-2025</span>
+                        <p>Winner, CityUHK Magic Inclusive Project Pilot Award – Led "Children’s Memory Map Workshop + Sound Walk" ("Voices of Sham Shui Po"),</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-year">2025</span>
+                        <p>First Tier Award, Digital Domain Scholarship – Developed "The Window Seat of Memory" with MemoralLens,</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
     <section id="vis-node-link_diagram"></section>
 
-    <script src="src/treemap.js"></script>
+    <script src="src/abilityradar.js"></script>
     <script src="src/node-link_diagram.js"></script>
     <script>
         // Auto scroll for recent work

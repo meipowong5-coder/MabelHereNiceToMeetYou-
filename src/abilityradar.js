@@ -1,10 +1,10 @@
 // Set dimensions and margins
-const width = 600;
-const height = 600;
-const margin = { top: 30, right: 120, bottom: 30, left: 120 };
+const width = 270;
+const height = 270;
+const margin = { top: 20, right: 30, bottom: 15, left: 30 };
 
 // Create SVG container
-const svg = d3.select("#vis-treemap")
+const svg = d3.select("#vis-abilityradar")
     .append("svg")
     .attr("width", width)
     .attr("height", height);
@@ -14,7 +14,7 @@ svg.append("text")
     .attr("x", width / 2)
     .attr("y", margin.top / 2)
     .attr("text-anchor", "middle")
-    .style("font-size", "16px")
+    .style("font-size", "12px")
     .style("font-weight", "bold")
     .text("My Skill and Ability Radar");
 
@@ -101,7 +101,7 @@ svg.selectAll(".ticklabel")
     .attr("class", "ticklabel")
     .attr("x", centerX + 5)
     .attr("y", d => centerY - radialScale(d))
-    .style("font-size", "10px")
+    .style("font-size", "8px")
     .text(d => d.toString());
 
 // Convert angle and value to SVG coordinates
@@ -140,7 +140,7 @@ svg.selectAll(".axislabel")
     .attr("x", d => d.label_coord.x)
     .attr("y", d => d.label_coord.y)
     .attr("text-anchor", "middle")
-    .style("font-size", "8px")
+    .style("font-size", "6px")
     .text(d => d.name);
 
 // Get path coordinates for a data point (close the path)
@@ -166,7 +166,7 @@ svg.selectAll("path")
     .join("path")
     .datum(d => getPathCoordinates(d))
     .attr("d", line)
-    .attr("stroke-width", 3)
+    .attr("stroke-width", 2)
     .attr("stroke", "steelblue")
     .attr("fill", "steelblue")
     .attr("stroke-opacity", 1)
@@ -192,7 +192,8 @@ const tooltip = d3.select("body").append("div")
     .style("position", "absolute")
     .style("background", "lightgray")
     .style("padding", "5px")
-    .style("border-radius", "5px");
+    .style("border-radius", "5px")
+    .style("font-size", "12px");
 
 // Draw points with tooltips
 svg.selectAll(".point")
@@ -201,7 +202,7 @@ svg.selectAll(".point")
     .attr("class", "point")
     .attr("cx", d => d.coord.x)
     .attr("cy", d => d.coord.y)
-    .attr("r", d => 5 + (d.value - 5))
+    .attr("r", d => 3 + (d.value - 5) * 0.5)
     .style("fill", d => colorScale(d.value / 10))
     .style("stroke", "#fff")
     .on("mouseover", (event, d) => {
