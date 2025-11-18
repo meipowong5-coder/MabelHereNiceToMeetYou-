@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <script src="https://unpkg.com/topojson@3"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <nav>
         <ul>
@@ -24,8 +26,10 @@
                     <img src="images/me.jpg" alt="Mabel Wong" class="personal-img">
                     <div class="personal-text">
                         <h1>Wong Mei Po, Mabel</h1>
-                        <p>A creative digital artist and programmer exploring interactive media and machine learning.</p>
-                        <div class="hashtags">#DigitalArt #InteractiveArt #Processing #Arduino #MachineLearning #TouchDesigner #GenerativeArt</div>
+                        <p>A creative digital artist and programmer exploring interactive media and machine learning.
+                        </p>
+                        <div class="hashtags">#DigitalArt #InteractiveArt #Processing #Arduino #MachineLearning
+                            #TouchDesigner #GenerativeArt</div>
                     </div>
                 </div>
             </section>
@@ -48,15 +52,39 @@
                 <div class="timeline-items">
                     <div class="timeline-item">
                         <span class="timeline-year">2024-2025</span>
-                        <p>Finalist, Disney Imaginations Hong Kong Competition – Co-created "Aquatica Utopia,"</p>
+                        <p class="activity-link">
+                            <a href="https://news.hongkongdisneyland.com/img/upload/2025-01-24-disney%20imaginations%20hong%20kong%20design%20competition%202025%20brings%20international%20talent%20together_ch.pdf"
+                                target="_blank">
+                                Finalist, Disney Imaginations Hong Kong Competition – Co-created “Aquatica Utopia”
+                                <span class="hover-img">
+                                    <img src="images/dsy00.png" alt="Disney Imaginations Project">
+                                </span>
+                            </a>
+                        </p>
                     </div>
                     <div class="timeline-item">
                         <span class="timeline-year">2024-2025</span>
-                        <p>Winner, CityUHK Magic Inclusive Project Pilot Award – Led "Children’s Memory Map Workshop + Sound Walk" ("Voices of Sham Shui Po"),</p>
+                        <p class="activity-link">
+                            <a href="https://projectinclusive.github.io/Memory_Map/" target="_blank">
+                                Winner, CityUHK Magic Inclusive Project Pilot Award – Led “Children’s Memory Map
+                                Workshop + Sound Walk” (“Voices of Sham Shui Po”)
+                                <span class="hover-img">
+                                    <img src="images/ssp00.png" alt="Memory Map Workshop">
+                                </span>
+                            </a>
+                        </p>
                     </div>
                     <div class="timeline-item">
                         <span class="timeline-year">2025</span>
-                        <p>First Tier Award, Digital Domain Scholarship – Developed "The Window Seat of Memory" with MemoralLens,</p>
+                        <p class="activity-link">
+                            <a href="https://meipowong5.wixsite.com/the-window-seat-of-m" target="_blank">
+                                First Tier Award, Digital Domain Scholarship – Developed “The Window Seat of Memory”
+                                with MemoralLens
+                                <span class="hover-img">
+                                    <img src="images/ml00.png" alt="The Window Seat of Memory">
+                                </span>
+                            </a>
+                        </p>
                     </div>
                 </div>
             </section>
@@ -86,4 +114,57 @@
         }
     </script>
 </body>
+<!-- Loading screen -->
+<div id="loader">
+    <div class="hourglass"></div>
+    <p>it is almost done! please wait~</p>
+</div>
+
+<style>
+    #loader {
+        position: fixed;
+        inset: 0;
+        background: rgb(92, 165, 165);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+        color: khaki;
+        font-size: 1.4em;
+        font-family: Tahoma, sans-serif;
+    }
+
+    .hourglass {
+        width: 60px;
+        height: 60px;
+        border: 8px solid khaki;
+        border-radius: 50%;
+        border-top-color: transparent;
+        border-bottom-color: transparent;
+        animation: spin 1.5s linear infinite;
+        margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Hide loader when page is fully loaded */
+    .loaded #loader {
+        opacity: 0;
+        visibility: hidden;
+    }
+</style>
+
+<script>
+    // Remove loader when everything (including images) is loaded
+    window.addEventListener('load', function () {
+        document.body.classList.add('loaded');
+    });
+</script>
+
 </html>
