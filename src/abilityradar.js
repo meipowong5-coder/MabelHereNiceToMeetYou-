@@ -25,11 +25,11 @@ const treeData = {
         {
             name: "Personal Qualities",
             children: [
-                { name: "Wisdom", score: 7 },
+                { name: "Wisdom", score: 6.5 },
                 { name: "Luck", score: 7 },
                 { name: "Patience", score: 6.5 },
                 { name: "Health", score: 7 },
-                { name: "Resilience", score: 6.5 },
+                { name: "Resilience", score: 7 },
                 { name: "Confidence", score: 6.5 },
                 { name: "Curiosity", score: 7 },
                 { name: "Mindful.", score: 5.5 }
@@ -39,7 +39,7 @@ const treeData = {
             name: "Social Skills",
             children: [
                 { name: "Empathy", score: 6 },
-                { name: "Comm.", score: 7 },
+                { name: "Communication", score: 6.5 },
                 { name: "Social", score: 6 }
             ]
         },
@@ -47,9 +47,9 @@ const treeData = {
             name: "Professional Skills",
             children: [
                 { name: "Creativity", score: 5 },
-                { name: "Discipline", score: 8.5 },
+                { name: "Discipline", score: 7.5 },
                 { name: "Adapt.", score: 8 },
-                { name: "Time Mgmt", score: 7.5 },
+                { name: "Time Management", score: 7.5 },
                 { name: "Focus", score: 6.5 }
             ]
         }

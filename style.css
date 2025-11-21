@@ -396,3 +396,13 @@ nav a {
     opacity: 1;
     visibility: visible;
 }
+
+#vis-grades {
+    width: 850px;
+    max-width: 100%;
+    margin: 3em auto;
+    padding: 20px;
+    background-color: rgb(92, 165, 165);
+    border: dotted antiquewhite 5px;
+    border-radius: 3em;
+}
