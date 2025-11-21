@@ -7,62 +7,198 @@
     <title>All Works - Mabel's Website</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .works-list {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
+        /* OVERRIDE GLOBAL CONTAINER ONLY FOR THIS PAGE */
+        section#all-works.container {
+            all: revert !important;
+            width: 100% !important;
+            max-width: none !important;
+            padding: 40px 20px 120px 20px !important;
+            margin: 0 auto !important;
+            border: none !important;
+            background: rgb(92, 165, 165);
+            box-sizing: border-box;
         }
 
-        .work-entry {
-            background-color: rgb(92, 165, 165);
-            border: dotted antiquewhite 5px;
-            border-radius: 2em;
-            padding: 20px;
-            text-align: center;
-            color: khaki;
+        .works-list * {
+            margin: 0;
         }
 
-        .work-image {
-            width: 100%;
-            max-width: 800px;
-            height: auto;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .work-title {
-            font-size: 1.6em;
-            font-weight: bold;
-            margin: 10px 0;
+        .works-list h2 {
+            margin-bottom: 70px;
+            font-size: 2.9em;
             color: antiquewhite;
         }
 
-        .work-meta {
-            font-size: 1.1em;
-            color: lightgray;
-            margin-bottom: 15px;
-        }
-
-        .work-desc {
-            text-align: left;
-            line-height: 1.6;
-            font-size: 1em;
-            white-space: pre-wrap;
+        .works-list {
+            max-width: 1700px;
+            margin: 0 auto;
+            padding: 0 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 80px; /* breathing room between containers */
         }
 
         .work-entry {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 110px;
+            padding: 50px 100px;
+            background-color: rgb(92, 165, 165);
+            border: dotted antiquewhite 6px;
+            border-radius: 2em;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: translateY(40px);
+            transition: all 1s ease-out;
         }
 
         .work-entry.show {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .work-entry:hover {
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+            transform: translateY(-6px);
+        }
+
+        @media (min-width: 901px) {
+            .work-entry:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+        }
+
+        .work-image, 
+        .work-image-link img {
+            max-width: 340px;
+            width: 100%;
+            flex-shrink: 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+            transition: transform 0.4s ease;
+        }
+
+        .work-image-link:hover img {
+            transform: scale(1.04);
+        }
+
+        .work-details {
+            flex: 1;
+            min-width: 0;
+            text-align: left;
+        }
+
+        .work-title {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: antiquewhite;
+        }
+
+        .work-meta {
+            font-size: 1.12em;
+            color: lightgray;
+            margin-bottom: 20px;
+        }
+
+        .work-desc {
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+
+        .work-desc a {
+            color: khaki;
+            text-decoration: underline;
+        }
+
+        .work-desc a:hover {
+            color: antiquewhite;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            margin: 140px 0 80px 0;
+            font-size: 1.8em;
+            color: antiquewhite;
+        }
+
+        .pagination button {
+            padding: 18px 50px;
+            background: khaki;
+            color: rgb(92, 165, 165);
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            background: antiquewhite;
+            transform: scale(1.06);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .works-list { 
+                padding: 0 20px; 
+                gap: 70px; 
+            }
+            .work-entry {
+                flex-direction: column;
+                padding: 45px 35px;
+                text-align: center;
+            }
+            .work-image, .work-image-link img { 
+                max-width: 88%; 
+                margin-bottom: 30px; 
+            }
+            .work-title, .work-meta, .work-desc { 
+                text-align: center; 
+            }
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: rgb(92, 165, 165);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.9s ease-out 0.4s, visibility 0.9s ease-out 0.4s;
+            color: khaki;
+            font-size: 1.7em;
+        }
+
+        .hourglass {
+            width: 90px;
+            height: 90px;
+            border: 11px solid khaki;
+            border-radius: 50%;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+            animation: spin 1.4s linear infinite;
+            margin-bottom: 35px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loaded #loader {
+            opacity: 0;
+            visibility: hidden;
         }
     </style>
 </head>
@@ -83,291 +219,325 @@
             <!-- 1 -->
             <div class="work-entry">
                 <img src="images/Video jigsaw puzzle.png" alt="Video jigsaw puzzle" class="work-image">
-                <div class="work-title">Video jigsaw puzzle</div>
-                <div class="work-meta">Mar 1, 2023 • Using Processing</div>
-                <div class="work-desc">After the user pressed the spacebar, the video will be upsetted by inverting the
-                    nine areas from area 0 to area 8 randomly. The user can choose to restore the video immediately or
-                    keep watching the video as if using a new way to enjoy it. If the user want to restore the video
-                    which means the user wants to change it back to the original appearance, he or she has to click on
-                    the upper or bottom half of an inverted area depends on the area has been flipped horizontally or
-                    vertically or not. If the area is inverted horizontally, click the upper half to restore it,
-                    otherwise click the bottom half if the area has been inverted vertically. Although there is only a 3
-                    x 3 squares canvas which looks quite easy to solve, the image will keep changing since it is a video
-                    so it contains a certain extent of the challenge.</div>
+                <div class="work-details">
+                    <div class="work-title">Video jigsaw puzzle</div>
+                    <div class="work-meta">Mar 1, 2023 • Using Processing</div>
+                    <div class="work-desc">After pressing the spacebar, the video is scrambled into a 3×3 grid with each section randomly flipped horizontally or vertically. Users can restore sections by clicking the correct half (upper for horizontal, lower for vertical). The constantly changing video content makes it surprisingly challenging and offers a fresh way to experience moving imagery.</div>
+                </div>
             </div>
 
             <!-- 2 -->
             <div class="work-entry">
                 <img src="images/Magic circle ambient art.png" alt="Magic circle ambient art" class="work-image">
-                <div class="work-title">Magic circle ambient art</div>
-                <div class="work-meta">Apr 5, 2023 • Using Processing</div>
-                <div class="work-desc">The ambient art mainly contains three things: circles that form a round with
-                    diﬀerent sizes and distances between the circles and the center point (pattern A), the popping
-                    white-stroke squares (pattern B), and colorful lines with ever-changing length (pattern C). I used
-                    analyze() to check the loudness which would aﬀect the value of noise together with the position and
-                    the opacity of pattern C. The length of patterns C and B, and the distance between the ellipses and
-                    the center in pattern A would be adjusted by the amplitude too. I set the ﬀt to calculate the
-                    frequency of sound and save the data in the spectrum. The data would be shown through the size of
-                    the circles in pattern A. Therefore, the visual elements are all based on the data received from the
-                    sound and the user could press the space bar to remove the fading eﬀect to create a mesh, magic
-                    circle-like drawing as time goes by.</div>
+                <div class="work-details">
+                    <div class="work-title">Magic circle ambient art</div>
+                    <div class="work-meta">Apr 5, 2023 • Using Processing</div>
+                    <div class="work-desc">Ambient audiovisual piece with three evolving patterns: concentric circles, popping squares, and reactive colorful lines. Loudness and FFT data drive all parameters. Press spacebar to disable fading and let patterns accumulate into a dense magical-circle drawing.</div>
+                </div>
             </div>
 
             <!-- 3 -->
             <div class="work-entry">
-                <img src="images/Universe x Rhythm Survival Game.png" alt="Universe x Rhythm Survival Game"
-                    class="work-image">
-                <div class="work-title">Universe x Rhythm Survival Game</div>
-                <div class="work-meta">May 4, 2023 • Using Processing</div>
-                <div class="work-desc">This game looks like a combination of a survival game and a rhythm game since it
-                    involves HP and the use of beat detector, and atmosphere makes me feel like I am in the universe so
-                    here comes the name “Universe x Rhythm Survival Game”. The combo icons are released based on the
-                    beat of songs, but they look like attacks from aliens too. Pressing the button when the combo
-                    arrives the circles at the bottom somehow looks like blocking their attacks and defending the player
-                    especially the HP will be deducted if s/he misses it.</div>
+                <a href="https://youtu.be/A5828fH8CE8" target="_blank" class="work-image-link">
+                    <img src="https://img.youtube.com/vi/A5828fH8CE8/0.jpg" alt="Universe x Rhythm Survival Game" class="work-image">
+                </a>
+                <div class="work-details">
+                    <div class="work-title">Universe x Rhythm Survival Game</div>
+                    <div class="work-meta">May 4, 2023 • Using Processing</div>
+                    <div class="work-desc">Hybrid rhythm-survival game with cosmic atmosphere. Combo icons arrive on beat as “alien attacks.” Correct timing blocks attacks and maintains HP; misses deduct health.
+                    <a href="https://youtu.be/A5828fH8CE8" target="_blank">Watch on YouTube ↗</a></div>
+                </div>
             </div>
 
             <!-- 4 -->
             <div class="work-entry">
-                <img src="https://img.youtube.com/vi/YH7MAvmmtLc/0.jpg" alt="“ (˙◠˙) ” Converter" class="work-image">
-                <div class="work-title">“ (˙◠˙) ” Converter</div>
-                <div class="work-meta">Dec 18, 2023 • Using Arduino</div>
-                <div class="work-desc">In recent years, there has been a growing recognition of the importance of
-                    anxiety and its impact on individuals and society as a whole. The heightened awareness of anxiety
-                    issues has inspired us to take action and find ways to address these challenges. We have developed a
-                    comprehensive system to address the issue of anxiety by implementing various features and
-                    techniques. Through extensive research, we have gained insights into anxiety and effective methods
-                    for managing it.
-                    <a href="https://youtu.be/YH7MAvmmtLc" target="_blank">Watch on YouTube ↗</a>
+                <a href="https://youtu.be/YH7MAvmmtLc" target="_blank" class="work-image-link">
+                    <img src="https://img.youtube.com/vi/YH7MAvmmtLc/0.jpg" alt="“ (˙◠˙) ” Converter" class="work-image">
+                </a>
+                <div class="work-details">
+                    <div class="work-title">“ (˙◠˙) ” Converter</div>
+                    <div class="work-meta">Dec 18, 2023 • Using Arduino</div>
+                    <div class="work-desc">Anxiety-relief device that converts heart-rate data into calming vibrations, lights, scents, and uplifting quotes. Multi-sensory feedback to help manage stress in real time.
+                    <a href="https://youtu.be/YH7MAvmmtLc" target="_blank">Watch on YouTube ↗</a></div>
                 </div>
             </div>
 
             <!-- 5 -->
             <div class="work-entry">
-                <img src="https://img.youtube.com/vi/x-KNQcRHjOo/0.jpg" alt="Onyx Veil-The Abyss of Amnesia"
-                    class="work-image">
-                <div class="work-title">Onyx Veil - The Abyss of Amnesia</div>
-                <div class="work-meta">May 5, 2024 • Using Maya</div>
-                <div class="work-desc">Discovered the song “Onyx Veil -The Abyss of Amnesia-”
-                    Imaginations popped up in my mind
-                    Learning Maya -> the ability to create 3D animations
-                    Want to create an animation for this song
-                    <a href="https://youtu.be/x-KNQcRHjOo" target="_blank">Watch on YouTube ↗</a>
+                <a href="https://youtu.be/x-KNQcRHjOo" target="_blank" class="work-image-link">
+                    <img src="https://img.youtube.com/vi/x-KNQcRHjOo/0.jpg" alt="Onyx Veil - The Abyss of Amnesia" class="work-image">
+                </a>
+                <div class="work-details">
+                    <div class="work-title">Onyx Veil - The Abyss of Amnesia</div>
+                    <div class="work-meta">May 5, 2024 • Using Maya</div>
+                    <div class="work-desc">3D animated music video created in Autodesk Maya, inspired by the song “Onyx Veil - The Abyss of Amnesia.”
+                    <a href="https://youtu.be/x-KNQcRHjOo" target="_blank">Watch on YouTube ↗</a></div>
                 </div>
             </div>
 
-            <!-- 6.1 – 6.4 (Image processing series) -->
+            <!-- 6 Image processing series -->
             <div class="work-entry">
-                <img src="images/Edges highlighted effect using Convolution Kernels.png" alt="Edges highlighted effect"
-                    class="work-image">
-                <div class="work-title">Edges highlighted effect using Convolution Kernels</div>
-                <div class="work-meta">Feb 10, 2025 • Using Processing</div>
-                <div class="work-desc">Image-processing algorithm that highlights edges using convolution kernels.</div>
+                <img src="images/Edges highlighted effect using Convolution Kernels.png" alt="Edges highlighted effect" class="work-image">
+                <div class="work-details">
+                    <div class="work-title">Edges highlighted effect using Convolution Kernels</div>
+                    <div class="work-meta">Feb 10, 2025 • Using Processing</div>
+                    <div class="work-desc">Image-processing algorithm that highlights edges using convolution kernels.</div>
+                </div>
             </div>
 
+            <!-- 7 -->
             <div class="work-entry">
                 <img src="images/Pokemon card effect using 3D pixels.png" alt="Pokemon card effect" class="work-image">
-                <div class="work-title">Pokemon card effect using 3D pixels</div>
-                <div class="work-meta">Feb 10, 2025 • Using Processing</div>
-                <div class="work-desc">Recreates the classic Pokémon card holographic shine using 3D pixel manipulation.
-                </div>
-            </div>
-
-            <div class="work-entry">
-                <img src="images/Splitting RGB effect using the RGB value extracted.png" alt="Splitting RGB effect"
-                    class="work-image">
-                <div class="work-title">Splitting RGB effect using the RGB value extracted</div>
-                <div class="work-meta">Feb 10, 2025 • Using Processing</div>
-                <div class="work-desc">Separates and displaces Red, Green, and Blue channels for a chromatic aberration
-                    look.</div>
-            </div>
-
-            <div class="work-entry">
-                <img src="images/Gothic stained glass windows using Mosaic concept.png"
-                    alt="Gothic stained glass windows" class="work-image">
-                <div class="work-title">Gothic stained glass windows using Mosaic concept</div>
-                <div class="work-meta">Feb 10, 2025 • Using Processing</div>
-                <div class="work-desc">Generates stained-glass-style artwork by applying mosaic tiling with color
-                    averaging.</div>
-            </div>
-
-            <!-- 7.1 – 7.3 (Video processing series) -->
-            <div class="work-entry">
-                <img src="images/Temporal Face-Mapped Video Playback.png" alt="Temporal Face-Mapped Video Playback"
-                    class="work-image">
-                <div class="work-title">Temporal Face-Mapped Video Playback</div>
-                <div class="work-meta">Mar 13, 2025 • Using Processing</div>
-                <div class="work-desc">Maps video frames onto a detected face over time, creating surreal face-tracked
-                    playback.</div>
-            </div>
-
-            <div class="work-entry">
-                <img src="images/Pop Cat Defense.png" alt="Pop Cat Defense" class="work-image">
-                <div class="work-title">Pop Cat Defense: Motion-Activated Gameplay</div>
-                <div class="work-meta">Mar 13, 2025 • Using Processing</div>
-                <div class="work-desc">Motion-triggered defense game featuring the famous Pop Cat meme.</div>
-            </div>
-
-            <div class="work-entry">
-                <img src="images/Move to Support Your Idol!.png" alt="Move to Support Your Idol!" class="work-image">
-                <div class="work-title">Move to Support Your Idol!</div>
-                <div class="work-meta">Mar 13, 2025 • Using Processing</div>
-                <div class="work-desc">Body movement controls cheering animations to “support” a virtual idol on screen.
+                <div class="work-details">
+                    <div class="work-title">Pokemon card effect using 3D pixels</div>
+                    <div class="work-meta">Feb 10, 2025 • Using Processing</div>
+                    <div class="work-desc">Recreates the classic Pokémon card holographic shine using 3D pixel manipulation.</div>
                 </div>
             </div>
 
             <!-- 8 -->
             <div class="work-entry">
-                <img src="images/AlchemAR.png" alt="AlchemAR" class="work-image">
-                <div class="work-title">AlchemAR - AR game</div>
-                <div class="work-meta">Mar 6, 2025 • Using Processing</div>
-                <div class="work-desc">The objective of “AlchemAR ” is to create an interactive AR platform where users
-                    can engage with chemical elements to form compounds through virtual reactions. Seven elements were
-                    selected to demonstrate ten chemical reactions, with AR markers designed to represent each element.
-                    These markers enable users to select elements and observe corresponding 3D visualizations and
-                    reactions.</div>
+                <img src="images/Splitting RGB effect using the RGB value extracted.png" alt="Splitting RGB effect" class="work-image">
+                <div class="work-details">
+                    <div class="work-title">Splitting RGB effect using extracted RGB values</div>
+                    <div class="work-meta">Feb 10, 2025 • Using Processing</div>
+                    <div class="work-desc">Separates and displaces Red, Green, and Blue channels for a chromatic aberration/glitch look.</div>
+                </div>
             </div>
 
             <!-- 9 -->
             <div class="work-entry">
-                <img src="images/Rhythm Trainer.png" alt="Rhythm Trainer" class="work-image">
-                <div class="work-title">Rhythm Trainer</div>
-                <div class="work-meta">Nov 6, 2024 • Using Arduino</div>
-                <div class="work-desc">Interactive rhythm training device with light and sound feedback built on
-                    Arduino.</div>
+                <img src="images/Gothic stained glass windows using Mosaic concept.png" alt="Gothic stained glass windows" class="work-image">
+                <div class="work-details">
+                    <div class="work-title">Gothic stained glass windows using Mosaic concept</div>
+                    <div class="work-meta">Feb 10, 2025 • Using Processing</div>
+                    <div class="work-desc">Generates stained-glass-style artwork by applying mosaic tiling with color averaging.</div>
+                </div>
             </div>
 
             <!-- 10 -->
             <div class="work-entry">
-                <img src="images/Emoji Board.png" alt="Emoji Board" class="work-image">
-                <div class="work-title">Emoji Board</div>
-                <div class="work-meta">Nov 17, 2024 • Using Arduino</div>
-                <div class="work-desc">Physical emoji reaction board controlled by buttons or sensors.</div>
+                <img src="images/Temporal Face-Mapped Video Playback.png" alt="Temporal Face-Mapped Video Playback" class="work-image">
+                <div class="work-details">
+                    <div class="work-title">Temporal Face-Mapped Video Playback</div>
+                    <div class="work-meta">Mar 13, 2025 • Using Processing</div>
+                    <div class="work-desc">Maps video frames onto a detected face in real time, creating surreal face-tracked playback.</div>
+                </div>
+            </div>
+
+            <!-- 11 -->
+            <div class="work-entry">
+                <img src="images/Pop Cat Defense.png" alt="Pop Cat Defense" class="work-image">
+                <div class="work-details">
+                    <div class="work-title">Pop Cat Defense: Motion-Activated Gameplay</div>
+                    <div class="work-meta">Mar 13, 2025 • Using Processing</div>
+                    <div class="work-desc">Motion-triggered defense game featuring the famous Pop Cat meme.</div>
+                </div>
             </div>
 
             <!-- 12 -->
             <div class="work-entry">
-                <img src="images/Anime Character _ Art Style Generator.png" alt="Anime Character Art Style Generator"
-                    class="work-image">
-                <div class="work-title">Machine Learning: Anime Character || Art Style Generator</div>
-                <div class="work-meta">Dec 12, 2023 • Using Python</div>
-                <div class="work-desc">A Convolutional VAE model that offers inspiration for creating new characters,
-                    fosters a stronger sense of individuality and preserves the art style.</div>
+                <img src="images/Move to Support Your Idol!.png" alt="Move to Support Your Idol!" class="work-image">
+                <div class="work-details">
+                    <div class="work-title">Move to Support Your Idol!</div>
+                    <div class="work-meta">Mar 13, 2025 • Using Processing</div>
+                    <div class="work-desc">Body movement controls cheering animations to “support” a virtual idol on screen.</div>
+                </div>
             </div>
 
             <!-- 13 -->
             <div class="work-entry">
-                <img src="images/MemoraLens.png" alt="The Window Seat of Memory with MemoralLens" class="work-image">
-                <div class="work-title">“The Window Seat of Memory” with MemoralLens</div>
-                <div class="work-meta">May 5, 2025 • Physical installation</div>
-                <div class="work-desc">Interactive physical installation merging multimedia tech and human connection to
-                    evoke personal reflections on memory and loss.</div>
+                <a href="https://youtu.be/MerPiSR97Oo" target="_blank" class="work-image-link">
+                    <img src="https://img.youtube.com/vi/MerPiSR97Oo/0.jpg" alt="AlchemAR - AR game" class="work-image">
+                </a>
+                <div class="work-details">
+                    <div class="work-title">AlchemAR - AR game</div>
+                    <div class="work-meta">Mar 6, 2025 • Using Processing</div>
+                    <div class="work-desc">Interactive AR platform where users combine chemical elements via printed markers to trigger real-time 3D chemical reactions and visualizations. Seven elements and ten reactions implemented.
+                    <a href="https://youtu.be/MerPiSR97Oo" target="_blank">Watch on YouTube ↗</a></div>
+                </div>
             </div>
 
             <!-- 14 -->
             <div class="work-entry">
-                <img src="images/Chromatic Fractals.png" alt="Chromatic Fractals" class="work-image">
-                <div class="work-title">Chromatic Fractals</div>
-                <div class="work-meta">Dec 10, 2024 • Using Processing + GLSL</div>
-                <div class="work-desc">Colorful, ever-evolving fractal visualizations created with shader programming.
+                <a href="https://youtu.be/uHwOj1Ai_KI" target="_blank" class="work-image-link">
+                    <img src="https://img.youtube.com/vi/uHwOj1Ai_KI/0.jpg" alt="Rhythm Trainer" class="work-image">
+                </a>
+                <div class="work-details">
+                    <div class="work-title">Rhythm Trainer</div>
+                    <div class="work-meta">Nov 6, 2024 • Using Arduino</div>
+                    <div class="work-desc">Interactive rhythm training device with light and sound feedback built on Arduino.
+                    <a href="https://youtu.be/uHwOj1Ai_KI" target="_blank">Watch on YouTube ↗</a></div>
+                </div>
+            </div>
+
+            <!-- 15 -->
+            <div class="work-entry">
+                <a href="https://youtu.be/I3nWnsEDwPE" target="_blank" class="work-image-link">
+                    <img src="https://img.youtube.com/vi/I3nWnsEDwPE/0.jpg" alt="Emoji Board" class="work-image">
+                </a>
+                <div class="work-details">
+                    <div class="work-title">Emoji Board</div>
+                    <div class="work-meta">Nov 17, 2024 • Using Arduino</div>
+                    <div class="work-desc">Physical emoji reaction board controlled by buttons or sensors.
+                    <a href="https://youtu.be/I3nWnsEDwPE" target="_blank">Watch on YouTube ↗</a></div>
                 </div>
             </div>
 
             <!-- 16 -->
             <div class="work-entry">
-                <img src="images/Computational image collage work.png" alt="Computational image collage work"
-                    class="work-image">
-                <div class="work-title">Computational image collage work</div>
-                <div class="work-meta">Feb 11, 2025 • Using TouchDesigner</div>
-                <div class="work-desc">A computational image collage work makes use of a replicator network to show
-                    album covers of a Japanese singer. I chose them because I could see the subtle evolution of the art
-                    style in the covers from different periods. Automate the arrangement of the images so that it will
-                    generate (almost) infinite combinations.</div>
+                <img src="images/Anime Character _ Art Style Generator.png" alt="Anime Character Art Style Generator" class="work-image">
+                <div class="work-details">
+                    <div class="work-title">Machine Learning: Anime Character || Art Style Generator</div>
+                    <div class="work-meta">Dec 12, 2023 • Using Python</div>
+                    <div class="work-desc">Convolutional VAE model that generates new anime characters while preserving distinct art styles and individuality.</div>
+                </div>
             </div>
 
             <!-- 17 -->
             <div class="work-entry">
-                <img src="images/VisualText.png" alt="VisualText" class="work-image">
-                <div class="work-title">VisualText</div>
-                <div class="work-meta">Feb 18, 2025 • Using TouchDesigner</div>
-                <div class="work-desc">A generative visual-text responds to music in a rhythmic way, referencing the
-                    style of the work of Korea artist group Young-Hae Chang Heavy Industries. The composition "loop
-                    through" the text in an automated manner.</div>
+                <img src="images/MemoraLens.png" alt="The Window Seat of Memory with MemoraLens" class="work-image">
+                <div class="work-details">
+                    <div class="work-title">“The Window Seat of Memory” with MemoraLens</div>
+                    <div class="work-meta">May 5, 2025 • Physical installation</div>
+                    <div class="work-desc">Interactive physical installation merging multimedia technology and human connection to evoke personal reflections on memory and loss.</div>
+                </div>
+            </div>
+
+            <!-- 18 -->
+            <div class="work-entry">
+                <a href="https://youtu.be/MQQr4P9xzLk" target="_blank" class="work-image-link">
+                    <img src="https://img.youtube.com/vi/MQQr4P9xzLk/0.jpg" alt="Chromatic Fractals" class="work-image">
+                </a>
+                <div class="work-details">
+                    <div class="work-title">Chromatic Fractals</div>
+                    <div class="work-meta">Dec 10, 2024 • Using Processing + GLSL</div>
+                    <div class="work-desc">Colorful, ever-evolving fractal visualizations created with shader programming.
+                    <a href="https://youtu.be/MQQr4P9xzLk" target="_blank">Watch on YouTube ↗</a></div>
+                </div>
+            </div>
+
+            <!-- 19 -->
+            <div class="work-entry">
+                <a href="https://youtu.be/2bP5ujdz6Ew" target="_blank" class="work-image-link">
+                    <img src="https://img.youtube.com/vi/2bP5ujdz6Ew/0.jpg" alt="Hannah Hoch Collage - Hatsuki Yura's Album" class="work-image">
+                </a>
+                <div class="work-details">
+                    <div class="work-title">Hannah Höch Collage - Hatsuki Yura's Album</div>
+                    <div class="work-meta">Feb 11, 2025 • Using TouchDesigner</div>
+                    <div class="work-desc">Replicator network in the style of Hannah Höch’s photomontage, automatically arranging album covers of Japanese singer Hatsuki Yura in near-infinite combinations.
+                    <a href="https://youtu.be/2bP5ujdz6Ew" target="_blank">Watch on YouTube ↗</a></div>
+                </div>
             </div>
 
             <!-- 20 -->
             <div class="work-entry">
-                <img src="images/You Have the Power to Plant Seeds in Others’ Hearts.png"
-                    alt="You Have the Power to Plant Seeds in Others’ Hearts" class="work-image">
-                <div class="work-title">You Have the Power to Plant Seeds in Others’ Hearts</div>
-                <div class="work-meta">Apr 21, 2025 • Using Processing, TouchDesigner, ChucK, OpenCV</div>
-                <div class="work-desc">It is an interactive installation that blends technology and human connection to
-                    share my personal reflections.</div>
+                <a href="https://youtu.be/ZkYNsG1lvng" target="_blank" class="work-image-link">
+                    <img src="https://img.youtube.com/vi/ZkYNsG1lvng/0.jpg" alt="Generative visual-text" class="work-image">
+                </a>
+                <div class="work-details">
+                    <div class="work-title">Generative visual-text</div>
+                    <div class="work-meta">Feb 18, 2025 • Using TouchDesigner</div>
+                    <div class="work-desc">Generative visual-text piece that rhythmically responds to music in the style of Young-Hae Chang Heavy Industries. Text loops automatically in hypnotic flow.
+                    <a href="https://youtu.be/ZkYNsG1lvng" target="_blank">Watch on YouTube ↗</a></div>
+                </div>
             </div>
 
+            <!-- 21 -->
+            <div class="work-entry">
+                <a href="https://youtu.be/TyyNfYo_778" target="_blank" class="work-image-link">
+                    <img src="https://img.youtube.com/vi/TyyNfYo_778/0.jpg" alt="You Have the Power to Plant Seeds in Others’ Hearts" class="work-image">
+                </a>
+                <div class="work-details">
+                    <div class="work-title">You Have the Power to Plant Seeds in Others’ Hearts</div>
+                    <div class="work-meta">Apr 21, 2025 • Processing, TouchDesigner, ChucK, OpenCV</div>
+                    <div class="work-desc">Interactive installation blending technology and human connection to share personal reflections on influence, growth, and how we affect others.
+                    <a href="https://youtu.be/TyyNfYo_778" target="_blank">Watch on YouTube ↗</a></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button id="prev-btn">Previous</button>
+            <span id="page-info"></span>
+            <button id="next-btn">Next</button>
         </div>
     </section>
 
     <script>
+        // Reliable animation trigger
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('show');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
         document.querySelectorAll('.work-entry').forEach(el => observer.observe(el));
-    </script>
-</body>
-<!-- Loading screen -->
-<div id="loader">
-    <div class="hourglass"></div>
-    <p>it is almost done! please wait~</p>
-</div>
 
-<style>
-    #loader {
-        position: fixed;
-        inset: 0;
-        background: rgb(92, 165, 165);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
-        color: khaki;
-        font-size: 1.4em;
-        font-family: Tahoma, sans-serif;
-    }
+        // Pagination - 7 works per page (exactly 3 pages)
+        const works = document.querySelectorAll('.work-entry');
+        const pageSize = 7;
+        let currentPage = 1;
+        const totalPages = Math.ceil(works.length / pageSize);
 
-    .hourglass {
-        width: 60px;
-        height: 60px;
-        border: 8px solid khaki;
-        border-radius: 50%;
-        border-top-color: transparent;
-        border-bottom-color: transparent;
-        animation: spin 1.5s linear infinite;
-        margin-bottom: 20px;
-    }
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const pageInfo = document.getElementById('page-info');
 
-    @keyframes spin {
-        to {
-            transform: rotate(360deg);
+        function updatePage() {
+            const start = (currentPage - 1) * pageSize;
+            const end = currentPage * pageSize;
+
+            works.forEach((work, i) => {
+                if (i >= start && i < end) {
+                    work.style.display = 'flex';
+                    // Force restart animation
+                    work.classList.remove('show');
+                    void work.offsetWidth;
+                    work.classList.add('show');
+                } else {
+                    work.style.display = 'none';
+                }
+            });
+
+            pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
         }
-    }
 
-    /* Hide loader when page is fully loaded */
-    .loaded #loader {
-        opacity: 0;
-        visibility: hidden;
-    }
-</style>
+        prevBtn.onclick = () => {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePage();
+                document.querySelector('#all-works h2').scrollIntoView({ behavior: 'smooth' });
+            }
+        };
 
-<script>
-    // Remove loader when everything (including images) is loaded
-    window.addEventListener('load', function () {
-        document.body.classList.add('loaded');
-    });
-</script>
+        nextBtn.onclick = () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePage();
+                document.querySelector('#all-works h2').scrollIntoView({ behavior: 'smooth' });
+            }
+        };
 
+        updatePage();
+
+        // Loader - disappears only after full load (including images)
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
+
+    <!-- Loading screen -->
+    <div id="loader">
+        <div class="hourglass"></div>
+        <p>it is almost done! please wait~</p>
+    </div>
+
+</body>
 </html>
