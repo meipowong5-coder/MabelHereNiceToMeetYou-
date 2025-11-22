@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experience - Mabel's Website</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        section#experience.container {
+            all: revert !important;
+            width: 100% !important;
+            max-width: none !important;
+            padding: 60px 20px 140px !important;
+            background: rgb(92, 165, 165);
+        }
+
+        .experience-list {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 120px;
+        }
+
+        .experience-entry {
+            border: dotted antiquewhite 6px;
+            border-radius: 2em;
+            padding: 80px 100px 90px;
+            background: rgb(92, 165, 165);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            transition: all 0.6s ease;
+        }
+
+        .experience-entry:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 35px 80px rgba(0,0,0,0.42);
+        }
+
+        .exp-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .exp-date {
+            font-size: 1.55em;
+            font-weight: bold;
+            color: antiquewhite;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .exp-title {
+            font-size: 2.4em;
+            color: antiquewhite;
+            line-height: 1.2;
+        }
+
+        .exp-title small {
+            font-size: 0.65em;
+            color: lightgray;
+            display: block;
+            margin-top: 8px;
+        }
+
+        .exp-body {
+            display: flex;
+            gap: 80px;
+            align-items: flex-start;
+        }
+
+        .exp-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .exp-desc {
+            font-size: 1.18em;
+            line-height: 1.85;
+            color: khaki;
+            white-space: pre-line;
+            margin-bottom: 30px;
+        }
+
+        .view-more-btn {
+            display: inline-block;
+            padding: 14px 34px;
+            background: khaki;
+            color: rgb(92, 165, 165);
+            font-weight: bold;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .view-more-btn:hover {
+            background: antiquewhite;
+            transform: scale(1.05);
+        }
+
+        .exp-visual {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            align-items: center;
+        }
+
+        .exp-main-image, .exp-gallery img {
+            max-width: 340px;
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+            cursor: zoom-in;
+            transition: transform 0.4s ease;
+        }
+
+        .exp-main-image:hover, .exp-gallery img:hover {
+            transform: scale(1.04);
+        }
+
+        .exp-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            width: 340px;
+        }
+
+        /* Lightbox */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #lightbox-img {
+            max-width: 94%;
+            max-height: 94vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            color: #fff;
+            font-size: 46px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Mobile */
+        @media (max-width: 960px) {
+            .exp-body {
+                flex-direction: column;
+                gap: 50px;
+            }
+            .exp-visual, .exp-gallery {
+                width: 100%;
+            }
+            .exp-main-image, .exp-gallery img {
+                max-width: 100%;
+            }
+            .exp-gallery {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="mywork.html">All Works</a></li>
+            <li><a href="experience.html"><strong>Experience</strong></a></li>
+        </ul>
+    </nav>
+
+    <section class="container" id="experience">
+        <h2>Work Experience</h2>
+
+        <div class="experience-list">
+
+            <!-- 1. Jockey Club Project IDEA -->
+            <div class="experience-entry">
+                <div class="exp-header">
+                    <span class="exp-date">Nov 2024 – Present</span>
+                    <div class="exp-title">Teaching Assistant – Jockey Club Project IDEA<br><small>City University of Hong Kong</small></div>
+                </div>
+                <div class="exp-body">
+                    <div class="exp-text">
+                        <div class="exp-desc">
+Workshop Introduction:
+The Jockey Club Arts-Tech Inclusion Project (Project IDEA) is funded by The Hong Kong Jockey Club Charities Trust. We help secondary school students and teachers discover arts technology through hands-on workshops, combining digital tools with creative expression while promoting inclusive art awareness.
+
+ Movemin — Build Your Own Contactless Musical Instrument
+Inspired by the Theremin, students create their own infrared-sensor instrument (Movemin) using Arduino. They explore new ways of playing music with body movements or assistive tools, making musical expression truly accessible to everyone.
+                        </div>
+                        <a href="https://github.com/JC-Project-IDEA/2025-26-Student-Workshop" target="_blank" class="view-more-btn">View Workshop Code & Materials ↗</a>
+                    </div>
+                    <div class="exp-visual">
+                        <img src="images/Theremin_IR_Sculpture.png" alt="Movemin sculpture" class="exp-main-image" onclick="openLightbox('images/Theremin_IR_Sculpture.png')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Memory Map – now with images -->
+            <div class="experience-entry">
+                <div class="exp-header">
+                    <span class="exp-date">May – Aug 2025</span>
+                    <div class="exp-title">Project Leader & Workshop Facilitator<br><small>Magic Inclusive Project Pilot Incentive Scheme</small></div>
+                </div>
+                <div class="exp-body">
+                    <div class="exp-text">
+                        <div class="exp-desc">
+Led a team that guided five secondary students from Cheung Sha Wan Catholic Secondary School in a sensory exploration of Sham Shui Po. Through guided sound walks and field recording, students created personal “memory maps”. All maps were merged into a large public collage map with QR codes linking to their original audio recordings — turning the neighbourhood into an inclusive, interactive sound experience.
+                        </div>
+                        <a href="https://projectinclusive.github.io/Memory_Map/" target="_blank" class="view-more-btn">View Project Website ↗</a>
+                        <a href="https://drive.google.com/file/d/1ZsuYktoJeAm5UmTSA4cqx_Y8E6_Rsb2O/view?usp=sharing" target="_blank" class="view-more-btn" style="margin-left:15px;">Watch Recap Video ↗</a>
+                    </div>
+                    <div class="exp-visual">
+                        <img src="images/mipp00.png" alt="Memory Map main" class="exp-main-image" onclick="openLightbox('images/mipp00.png')">
+                        <div class="exp-gallery">
+                            <img src="images/mipp01.png" alt="Memory Map 1" onclick="openLightbox('images/mipp01.png')">
+                            <img src="images/mipp02.png" alt="Memory Map 2" onclick="openLightbox('images/mipp02.png')">
+                            <img src="images/mipp03.png" alt="Memory Map 3" onclick="openLightbox('images/mipp03.png')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Student Helper -->
+            <div class="experience-entry">
+                <div class="exp-header">
+                    <span class="exp-date">Sep 2023 – May 2024 (2 semesters)</span>
+                    <div class="exp-title">Student Helper – School of Creative Media<br><small>Creative Coding Course (Processing/p5.js)</small></div>
+                </div>
+                <div class="exp-body">
+                    <div class="exp-text">
+                        <div class="exp-desc">
+Provided dedicated teaching support for undergraduate Creative Coding classes. Helped students master Processing/p5.js through one-on-one debugging sessions, project guidance, and creative concept development in generative and interactive art.
+                        </div>
+                        <a href="https://docs.google.com/presentation/d/19R_CV4OaAGFZvDONd2ycc65D6_syv3jH/edit?usp=sharing" target="_blank" class="view-more-btn">View Sample Lecture Notes ↗</a>
+                    </div>
+                    <div class="exp-visual">
+                        <img src="images/sh00.png" alt="Student helper main" class="exp-main-image" onclick="openLightbox('images/sh00.png')">
+                        <div class="exp-gallery">
+                            <img src="images/sh01.png" alt="Student work 1" onclick="openLightbox('images/sh01.png')">
+                            <img src="images/sh02.png" alt="Student work 2" onclick="openLightbox('images/sh02.png')">
+                            <img src="images/sh03.png" alt="Student work 3" onclick="openLightbox('images/sh03.png')">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" class="modal-content">
+    </div>
+
+    <!-- Loader -->
+    <div id="loader">
+        <div class="hourglass"></div>
+        <p>it is almost done! please wait~</p>
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        document.addEventListener('keyup', e => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
+
+</body>
+</html>
