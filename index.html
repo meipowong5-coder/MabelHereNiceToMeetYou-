@@ -9,70 +9,226 @@
     <script src="https://unpkg.com/topojson@3"></script>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Keep your original container style */
-        .container, section {
-            margin: 3em auto;
-            width: min(50em, 100%);
-            background-color: rgb(92, 165, 165);
-            padding: min(1em, 15%);
-            border: dotted antiquewhite 5px;
-            border-radius: 3em;
-        }
-
-        .intro-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            max-width: 1200px;
-            margin: 20px auto;
-            gap: 10px; /* 10px closer than before */
-        }
-
-        .left-panel, .right-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .left-panel { flex: 1; max-width: 60%; }
-        .right-panel { width: 350px; flex-shrink: 0; }
-
-        .vis-container {
-            width: 100%;
-            height: 300px;
-            background-color: rgb(92, 165, 165);
-            border: dotted antiquewhite 5px;
-            border-radius: 3em;
-            padding: 10px;
+        /* Remove the problematic global * rule that breaks layout */
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        /* Force same height for top row */
-        #personal, #vis-abilityradar { min-height: 380px; display: flex; align-items: center; }
-
-        /* Force same height for bottom row */
-        #recent-work, #recent-activities { min-height: 420px; display: flex; flex-direction: column; justify-content: center; }
-
-        /* Recent Work – fixed size images */
-        .scroll-container {
-            display: flex;
-            overflow-x: hidden;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            gap: 0;
-            border-radius: 16px;
-            overflow: hidden;
+        html {
+            background-color: white;
+            scroll-behavior: smooth;
         }
 
-        .scroll-container img {
-            width: 600px;
-            height: 340px;
+        body {
+            background: rgb(92, 165, 165);
+            color: khaki;
+            font: 14px Tahoma, sans-serif;
+            line-height: 1.6;
+        }
+
+        nav {
+            margin: 1.5em auto;
+            text-align: center;
+        }
+
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5em;
+            list-style: none;
+            padding: 0;
+        }
+
+        .view-more-btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background: khaki;
+            color: rgb(92, 165, 165);
+            font-weight: bold;
+            font-size: 1.1em;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .view-more-btn:hover {
+            background: antiquewhite;
+            transform: scale(1.05);
+        }
+
+        /* Main layout - fully responsive */
+        .intro-section {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        @media (min-width: 900px) {
+            .intro-section {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .container {
+            background-color: rgb(92, 165, 165);
+            border: dotted antiquewhite 5px;
+            border-radius: 3em;
+            padding: 2em;
+            width: 100%;
+        }
+
+        .personal-flex {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .personal-flex {
+                flex-direction: row;
+                align-items: center;
+                text-align: left;
+            }
+        }
+
+        .personal-img {
+            width: 260px;
+            height: 260px;
             object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             flex-shrink: 0;
         }
 
-        /* Hover preview for activities */
+        .personal-text h1 {
+            font-size: 2.4em;
+            margin: 0.5em 0 0.3em;
+            color: antiquewhite;
+        }
+
+        .personal-text p {
+            font-size: 1.2em;
+            margin-bottom: 0.8em;
+        }
+
+        .hashtags {
+            color: lightgray;
+            font-size: 1em;
+        }
+
+        /* Recent Work - fully responsive carousel */
+        #recent-work h2 {
+            text-align: center;
+            margin-bottom: 1em;
+            font-size: 2em;
+            color: antiquewhite;
+        }
+
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 15px;
+            padding: 10px 0;
+            scrollbar-width: thin;
+            scrollbar-color: khaki transparent;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .scroll-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: khaki;
+            border-radius: 10px;
+        }
+
+        .scroll-container img {
+            width: 100%;
+            max-width: 560px;
+            height: auto;
+            min-width: 280px;
+            flex: 0 0 auto;
+            border-radius: 16px;
+            object-fit: cover;
+            scroll-snap-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            transition: transform 0.4s ease;
+        }
+
+        .scroll-container img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Right panel - radar + activities */
+        .vis-container {
+            width: 100%;
+            height: 340px;
+            background-color: rgb(92, 165, 165);
+            border: dotted antiquewhite 5px;
+            border-radius: 3em;
+            padding: 15px;
+        }
+
+        #recent-activities h2 {
+            text-align: center;
+            margin-bottom: 1.2em;
+            font-size: 2em;
+            color: antiquewhite;
+        }
+
+        .timeline-items {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8em;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 28px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 14px;
+            height: 14px;
+            background: khaki;
+            border-radius: 50%;
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: antiquewhite;
+            font-size: 1.1em;
+        }
+
+        .activity-link a {
+            color: khaki;
+            text-decoration: underline;
+        }
+
+        .activity-link a:hover {
+            color: antiquewhite;
+        }
+
+        /* Hover preview image - responsive */
         .hover-img {
             position: relative;
             display: inline-block;
@@ -80,31 +236,90 @@
 
         .hover-img img {
             position: absolute;
-            top: -180px;
+            bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
-            width: 300px;
+            margin-bottom: 12px;
+            width: 280px;
+            max-width: 90vw;
             border-radius: 12px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
             border: 3px solid antiquewhite;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
             opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
+            visibility: hidden;
+            transition: all 0.3s ease;
             z-index: 100;
         }
 
-        .hover-img:hover img { opacity: 1; }
+        .hover-img:hover img {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Node-link diagram section */
+        #vis-node-link_diagram {
+            max-width: 1000px;
+            margin: 4em auto;
+            padding: 2em;
+            background-color: rgb(92, 165, 165);
+            border: dotted antiquewhite 5px;
+            border-radius: 3em;
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: rgb(92, 165, 165);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            color: khaki;
+            font-size: 1.6em;
+            transition: opacity 0.8s ease-out;
+        }
+
+        .hourglass {
+            width: 80px;
+            height: 80px;
+            border: 10px solid khaki;
+            border-radius: 50%;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+            animation: spin 1.5s linear infinite;
+            margin-bottom: 30px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loaded #loader {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            nav ul { gap: 1em; flex-direction: column; }
+            .view-more-btn { font-size: 1em; padding: 10px 24px; }
+            .personal-text h1 { font-size: 2em; }
+            .personal-img { width: 200px; height: 200px; }
+        }
     </style>
 </head>
 
 <body>
     <nav>
         <ul>
-            <li><a href="about.html" class="view-more-btn">˖˚⊹AboutMe⊹˚˖</a></li>
-            <li><a href="#vis-node-link_diagram" class="view-more-btn">˖˚⊹Skills⊹˚˖</a></li>
-            <li><a href="index.html" class="view-more-btn">˖˚⊹Home⊹˚˖</a></li>
-            <li><a href="mywork.html" class="view-more-btn">˖˚⊹Works⊹˚˖</a></li>
-            <li><a href="experience.html" class="view-more-btn">˖˚⊹Experience⊹˚˖</a></li> <!-- NEW BUTTON ADDED -->
+            <li><a href="about.html" class="view-more-btn">About Me</a></li>
+            <li><a href="#vis-node-link_diagram" class="view-more-btn">Skills</a></li>
+            <li><a href="index.html" class="view-more-btn">Home</a></li>
+            <li><a href="mywork.html" class="view-more-btn">Works</a></li>
+            <li><a href="experience.html" class="view-more-btn">Experience</a></li>
         </ul>
     </nav>
 
@@ -141,10 +356,8 @@
                         <span class="timeline-year">2024-2025</span>
                         <p class="activity-link">
                             <a href="https://news.hongkongdisneyland.com/img/upload/2025-01-24-disney%20imaginations%20hong%20kong%20design%20competition%202025%20brings%20international%20talent%20together_ch.pdf" target="_blank">
-                                Finalist, Disney Imaginations Hong Kong Competition – Co-created “Aquatica Utopia”
-                                <span class="hover-img">
-                                    <img src="images/dsy00.png" alt="Disney Imaginations Project">
-                                </span>
+                                Finalist, Disney Imaginations Hong Kong Competition – “Aquatica Utopia”
+                                <span class="hover-img"><img src="images/dsy00.png" alt="Disney Project"></span>
                             </a>
                         </p>
                     </div>
@@ -152,10 +365,8 @@
                         <span class="timeline-year">2024-2025</span>
                         <p class="activity-link">
                             <a href="https://projectinclusive.github.io/Memory_Map/" target="_blank">
-                                Winner, CityUHK Magic Inclusive Project Pilot Award – Led “Children’s Memory Map Workshop + Sound Walk”
-                                <span class="hover-img">
-                                    <img src="images/ssp00.png" alt="Memory Map Workshop">
-                                </span>
+                                Winner, CityUHK Magic Inclusive Project – Memory Map Sound Walk
+                                <span class="hover-img"><img src="images/ssp00.png" alt="Memory Map"></span>
                             </a>
                         </p>
                     </div>
@@ -163,10 +374,8 @@
                         <span class="timeline-year">2025</span>
                         <p class="activity-link">
                             <a href="https://meipowong5.wixsite.com/the-window-seat-of-m" target="_blank">
-                                First Tier Award, Digital Domain Scholarship – Developed “The Window Seat of Memory” with MemoralLens
-                                <span class="hover-img">
-                                    <img src="images/ml00.png" alt="The Window Seat of Memory">
-                                </span>
+                                First Tier Award, Digital Domain Scholarship – “The Window Seat of Memory”
+                                <span class="hover-img"><img src="images/ml00.png" alt="Window Seat"></span>
                             </a>
                         </p>
                     </div>
@@ -176,24 +385,28 @@
     </div>
 
     <section id="vis-node-link_diagram"></section>
-    
-    <!-- University Course Grades moved to about.html -->
-    
+
     <script src="src/abilityradar.js"></script>
     <script src="src/node-link_diagram.js"></script>
 
     <script>
-        // Auto-scroll every 5 seconds
+        // Responsive auto-scroll for recent work
         const scrollContainer = document.querySelector('.scroll-container');
         if (scrollContainer) {
             let scrollAmount = 0;
-            const imageWidth = 600;
+            const scrollWidth = scrollContainer.scrollWidth / 3;
+
             setInterval(() => {
-                scrollAmount += imageWidth;
+                scrollAmount += scrollWidth;
                 if (scrollAmount >= scrollContainer.scrollWidth) scrollAmount = 0;
                 scrollContainer.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-            }, 5000);
+            }, 5500);
         }
+
+        // Loader
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
     </script>
 
     <!-- Loader -->
@@ -201,25 +414,5 @@
         <div class="hourglass"></div>
         <p>It is almost done! Please wait~</p>
     </div>
-
-    <style>
-        #loader {
-            position: fixed; inset: 0; background: rgb(92, 165, 165);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 9999; transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
-            color: khaki; font-size: 1.4em; font-family: Tahoma, sans-serif;
-        }
-        .hourglass {
-            width: 60px; height: 60px; border: 8px solid khaki; border-radius: 50%;
-            border-top-color: transparent; border-bottom-color: transparent;
-            animation: spin 1.5s linear infinite; margin-bottom: 20px;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .loaded #loader { opacity: 0; visibility: hidden; }
-    </style>
-
-    <script>
-        window.addEventListener('load', () => document.body.classList.add('loaded'));
-    </script>
 </body>
 </html>
