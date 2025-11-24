@@ -229,38 +229,49 @@ nav a {
 .scatterplot {
     font-family: Arial, sans-serif;
 }
+
 .dot {
-    fill: red; /* For scatterplot */
+    fill: red;
+    /* For scatterplot */
     opacity: 0.7;
 }
 
 .radar-chart {
     font-family: Arial, sans-serif;
 }
+
 .grid-circle {
     stroke: #ccc;
-    stroke-dasharray: 2,2;
+    stroke-dasharray: 2, 2;
     fill: none;
 }
+
 .grid-label {
     font-size: 10px;
     fill: black;
 }
+
 .axis-line {
     stroke: #ccc;
 }
+
 .axis-label {
-    font-size: 10px; /* Match radarplot.js */
-    fill: black; /* Ensure visibility */
+    font-size: 10px;
+    /* Match radarplot.js */
+    fill: black;
+    /* Ensure visibility */
 }
+
 .radar-area {
     fill: steelblue;
     fill-opacity: 0.3;
     stroke: steelblue;
     stroke-width: 2px;
 }
+
 .radar-dot {
-    fill: steelblue !important; /* Override global styles */
+    fill: steelblue !important;
+    /* Override global styles */
     opacity: 0.7;
 }
 
@@ -270,6 +281,7 @@ nav a {
     stroke: black;
     shape-rendering: crispEdges;
 }
+
 .axis text {
     font-size: 12px;
 }
@@ -322,25 +334,32 @@ nav a {
 }
 
 @keyframes pulse {
-    0%, 100% { 
-        opacity: 0.3; 
-        transform: scale(1); 
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(1);
     }
-    50% { 
-        opacity: 0.1; 
-        transform: scale(1.3); 
+
+    50% {
+        opacity: 0.1;
+        transform: scale(1.3);
     }
 }
 
 @keyframes float {
-    0%, 100% { 
-        transform: translateY(0px) translateX(0px); 
+
+    0%,
+    100% {
+        transform: translateY(0px) translateX(0px);
     }
-    33% { 
-        transform: translateY(-2px) translateX(1px); 
+
+    33% {
+        transform: translateY(-2px) translateX(1px);
     }
-    66% { 
-        transform: translateY(1px) translateX(-1px); 
+
+    66% {
+        transform: translateY(1px) translateX(-1px);
     }
 }
 
@@ -380,7 +399,7 @@ nav a {
     pointer-events: none;
     transition: opacity 0.3s, visibility 0.3s;
     z-index: 100;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -397,7 +416,7 @@ nav a {
     visibility: visible;
 }
 
-#vis-grades {
+#vis-grades-scatter {
     width: 850px;
     max-width: 100%;
     margin: 3em auto;
@@ -405,4 +424,22 @@ nav a {
     background-color: rgb(92, 165, 165);
     border: dotted antiquewhite 5px;
     border-radius: 3em;
+}
+
+.view-more-btn {
+    display: inline-block;
+    padding: 10px 40px;
+    background: khaki;
+    color: rgb(92, 165, 165);
+    font-weight: bold;
+    font-size: 1.em;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.view-more-btn:hover {
+    background: antiquewhite;
+    transform: scale(1.05);
 }

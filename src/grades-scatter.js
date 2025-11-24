@@ -1,10 +1,9 @@
 // grades-scatter.js — dropdown with full names + correct filtering + your exact positioning
 (function () {
-    const width = 800;
-    const height = 600;
+    const width = 700;
+    const height = 700;
     const margin = { top: 80, right: 100, bottom: 80, left: 200 };
-
-    const container = d3.select("#vis-grades");
+    const container = d3.select("#vis-grades-scatter");
 
     const svg = container
         .append("svg")
@@ -69,8 +68,7 @@
         .attr("text-anchor", "middle")
         .style("font-size", "18px")
         .style("font-weight", "bold")
-        .style("fill", "antiquewhite")
-        .text("University Course Grades");
+        .style("fill", "antiquewhite");
 
     // Data with short names
     const data = [
