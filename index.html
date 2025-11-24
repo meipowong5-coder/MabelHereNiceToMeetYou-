@@ -18,18 +18,19 @@
             line-height: 1.6;
         }
 
-        /* Navigation - Always horizontal, even on mobile */
+        /* Navigation - Horizontal + tighter spacing */
         nav {
             margin: 1.5em auto;
             text-align: center;
-            padding: 0 15px;
+            padding: 0 10px;
             overflow-x: auto;
             white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
         }
 
         nav ul {
             display: inline-flex;
-            gap: 1em;
+            gap: 0.8em; /* closer buttons */
             list-style: none;
             padding: 10px 0;
             min-width: max-content;
@@ -37,11 +38,11 @@
 
         .view-more-btn {
             display: inline-block;
-            padding: 12px 24px;
+            padding: 11px 22px;
             background: khaki;
             color: rgb(92, 165, 165);
             font-weight: bold;
-            font-size: 1.05em;
+            font-size: 1em;
             border-radius: 50px;
             text-decoration: none;
             transition: all 0.3s;
@@ -70,15 +71,21 @@
             }
         }
 
-        /* Ultra-narrow screens (<300px) - full bleed */
-        @media (max-width: 299px) {
-            .intro-section { padding: 0; }
-            .container, #vis-node-link_diagram {
-                margin: 0 !important;
+        /* Full-width on small screens */
+        @media (max-width: 480px) {
+            .intro-section {
+                padding: 0;
+                margin: 10px 0;
+            }
+            .container,
+            #vis-node-link_diagram {
+                width: 100vw !important;
+                margin-left: calc(-50vw + 50%) !important;
+                margin-right: calc(-50vw + 50%) !important;
                 border-radius: 0 !important;
                 border-left: none !important;
                 border-right: none !important;
-                width: 100vw !important;
+                padding: 2em 1.5em;
             }
         }
 
@@ -132,7 +139,7 @@
             font-size: 1em;
         }
 
-        /* Recent Work - 100% responsive */
+        /* Recent Work */
         #recent-work h2 {
             text-align: center;
             margin-bottom: 1.2em;
@@ -257,7 +264,7 @@
             visibility: visible;
         }
 
-        /* Artworks Network - responsive + pinch-to-zoom */
+        /* Artworks Network */
         #vis-node-link_diagram {
             width: 100%;
             max-width: 1000px;
@@ -341,11 +348,11 @@
 <body>
     <nav>
         <ul>
-            <li><a href="about.html" class="view-more-btn">About Me</a></li>
-            <li><a href="#vis-node-link_diagram" class="view-more-btn">Skills</a></li>
-            <li><a href="index.html" class="view-more-btn">Home</a></li>
-            <li><a href="mywork.html" class="view-more-btn">Works</a></li>
-            <li><a href="experience.html" class="view-more-btn">Experience</a></li>
+            <li><a href="about.html" class="view-more-btn">˖˚⊹AboutMe⊹˚˖</a></li>
+            <li><a href="#vis-node-link_diagram" class="view-more-btn">˖˚⊹Skills⊹˚˖</a></li>
+            <li><a href="index.html" class="view-more-btn">˖˚⊹Home⊹˚˖</a></li>
+            <li><a href="mywork.html" class="view-more-btn">˖˚⊹Works⊹˚˖</a></li>
+            <li><a href="experience.html" class="view-more-btn">˖˚⊹Experience⊹˚˖</a></li> <!-- NEW BUTTON ADDED -->
         </ul>
     </nav>
 
@@ -412,7 +419,7 @@
 
     <section id="vis-node-link_diagram"></section>
 
-    <button id="back-to-top" title="Back to Top">Up Arrow</button>
+    <button id="back-to-top" title="Back to Top">Top</button>
 
     <script src="src/abilityradar.js"></script>
     <script src="src/node-link_diagram.js"></script>
