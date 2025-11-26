@@ -2,7 +2,7 @@
 (function () {
     const width = 700;
     const height = 700;
-    const margin = { top: 50, right: 80, bottom: 60, left: 80 };  // was 80/100/80/200 → now tighter!
+    const margin = { top: 20, right: 50, bottom: 100, left: 175 };  // was 80/100/80/200 → now tighter!
     const container = d3.select("#vis-grades-scatter");
 
     const svg = container

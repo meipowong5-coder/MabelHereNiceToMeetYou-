@@ -5,29 +5,29 @@
 
     // Data with real dates and details, software as arrays
     const nodes = [
-        { id: "Video jigsaw puzzle", software: ["Processing"], details: "After the user pressed the spacebar, the video will be upsetted by inverting the nine areas from area 0 to area 8 randomly. The user can choose to restore the video immediately or keep watching the video as if using a new way to enjoy it. If the user want to restore the video which means the user wants to change it back to the original appearance, he or she has to click on the upper or bottom half of an inverted area depends on the area has been flipped horizontally or vertically or not. If the area is inverted horizontally, click the upper half to restore it, otherwise click the bottom half if the area has been inverted vertically (see figure 2). I would call it a game because the user has to think whether they should click the upper half or the bottom half by determining whether an area has been inverted or not. Although there is only a 3 x 3 squares canvas which looks quite easy to solve, the image will keep changing since it is a video so it contains a certain extent of the challenge.", date: new Date(2023, 2, 1) },
-        { id: "Magic circle ambient art", software: ["Processing"], details: "The ambient art mainly contains three things: circles that form a round with diﬀerent sizes and distances between the circles and the center point (pattern A), the popping white-stroke squares (pattern B), and colorful lines with ever-changing length (pattern C). I used analyze() to check the loudness which would aﬀect the value of noise together with the position and the opacity of pattern C. The length of patterns C and B, and the distance between the ellipses and the center in pattern A would be adjusted by the amplitude too. I set the ﬀt to calculate the frequency of sound and save the data in the spectrum. The data would be shown through the size of the circles in pattern A. Therefore, the visual elements are all based on the data received from the sound and the user could press the space bar to remove the fading eﬀect to create a mesh, magic circle-like drawing as time goes by.", date: new Date(2023, 3, 5) },
-        { id: "Universe x Rhythm Survival Game", software: ["Processing"], details: "This game looks like a combination of a survival game and a rhythm game since it involves HP and the use of beat detector, and atmosphere makes me feel like I am in the universe so here comes the name “Universe x Rhythm Survival Game”. The combo icons are released based on the beat of songs, but they look like attacks from aliens too. Pressing the button when the combo arrives the circles at the bottom somehow looks like blocking their attacks and defending the player especially the HP will be deducted if s/he misses it.", date: new Date(2023, 4, 4) },
-        { id: "“ (˙◠˙) ” Converter", software: ["Arduino"], details: "https://youtu.be/YH7MAvmmtLc In recent years, there has been a growing recognition of the importance of anxiety and its impact on individuals and society as a whole. The heightened awareness of anxiety issues has inspired us to take action and find ways to address these challenges. We have developed a comprehensive system to address the issue of anxiety by implementing various features and techniques. Through extensive research, we have gained insights into anxiety and effective methods for managing it.", date: new Date(2023, 11, 18) },
-        { id: "Onyx Veil-The Abyss of Amnesia", software: ["Maya"], details: "https://youtu.be/x-KNQcRHjOo Discovered the song “Onyx Veil -The Abyss of Amnesia-” Imaginations popped up in my mind Learning Maya -> the ability to create 3D animations Want to create an animation for this song", date: new Date(2024, 4, 5) },
-        { id: "Image Processing Algorithms", software: ["Processing"], details: "Image processing algorithms including edges highlight, pokemon card, RGB split, and mosaic effects.", date: new Date(2025, 1, 10) },
-        { id: "Edges highlighted effect using Convolution Kernels", software: ["Processing"], details: "Edges highlighted effect using Convolution Kernels", date: new Date(2025, 1, 10) },
-        { id: "Pokemon card effect using 3D pixels", software: ["Processing"], details: "Pokemon card effect using 3D pixels", date: new Date(2025, 1, 10) },
-        { id: "Splitting RGB effect using the RGB value extracted", software: ["Processing"], details: "Splitting RGB effect using the RGB value extracted", date: new Date(2025, 1, 10) },
-        { id: "Gothic stained glass windows using Mosaic concept", software: ["Processing"], details: "Gothic stained glass windows using Mosaic concept", date: new Date(2025, 1, 10) },
-        { id: "Video Processing", software: ["Processing"], details: "Video processing projects including temporal face-mapped playback, pop cat defense, and move to support.", date: new Date(2025, 2, 13) },
-        { id: "Temporal Face-Mapped Video Playback", software: ["Processing"], details: "Temporal Face-Mapped Video Playback", date: new Date(2025, 2, 13) },
-        { id: "Pop Cat Defense: Motion-Activated Gameplay", software: ["Processing"], details: "Pop Cat Defense: Motion-Activated Gameplay", date: new Date(2025, 2, 13) },
-        { id: "Move to Support Your Idol!", software: ["Processing"], details: "Move to Support Your Idol!", date: new Date(2025, 2, 13) },
-        { id: "AlchemAR-AR game", software: ["Processing"], details: "The objective of “AlchemAR ” is to create an interactive AR platform where users can engage with chemical elements to form compounds through virtual reactions. Seven elements were selected to demonstrate ten chemical reactions, with AR markers designed to represent each element. These markers enable users to select elements and observe corresponding 3D visualizations and reactions. The project aims to foster an engaging and educational experience, allowing users to explore chemistry in an innovative and interactive manner.", date: new Date(2025, 2, 6) },
-        { id: "Rhythm Trainer", software: ["Arduino"], details: "Rhythm trainer", date: new Date(2024, 10, 6) },
-        { id: "Emoji Board", software: ["Arduino"], details: "Emoji board", date: new Date(2024, 10, 17) },
-        { id: "Machine Learning: Anime Character || Art Style Generator", software: ["Python"], details: "A Convolutional VAE model that: Offer inspiration for creating new characters, Foster a stronger sense of individuality and Preserve the art style.", date: new Date(2023, 11, 12) },
-        { id: "“The Window Seat of Memory” with MemoralLens", software: ["Physical"], details: "Physical installation", date: new Date(2025, 4, 5) },
-        { id: "Chromatic Fractals", software: ["Processing"], details: "Made with Processing and GLSL", date: new Date(2024, 11, 10) },
-        { id: "Computational image collage work", software: ["TouchDesigner"], details: "A computational image collage work makes use of a replicator network to show album covers of a Japanese singer. I chose them because I could see the subtle evolution of the art style in the covers from different periods. Automate the arrangement of the images so that it will generate (almost) infinite combinations.", date: new Date(2025, 1, 11) },
-        { id: "VisualText", software: ["TouchDesigner"], details: "A generative visual-text responds to music in a rhythmic way, referencing the style of the work of Korea artist group Young-Hae Chang Heavy Industries. The composition \"loop through\" the text in an automated manner.", date: new Date(2025, 1, 18) },
-        { id: "You Have the Power to Plant Seeds in Others’ Hearts", software: ["Processing", "TouchDesigner", "ChucK", "OpenCV"], details: "It is an interactive installation that blends technology and human connection to share my personal reflections.", date: new Date(2025, 3, 21) }
+        { id: "Video jigsaw puzzle", software: ["Processing"], date: new Date(2023, 2, 1) },
+        { id: "Magic circle ambient art", software: ["Processing"], date: new Date(2023, 3, 5) },
+        { id: "Universe x Rhythm Survival Game", software: ["Processing"], date: new Date(2023, 4, 4) },
+        { id: "“ (˙◠˙) ” Converter", software: ["Arduino"], date: new Date(2023, 11, 18) },
+        { id: "Onyx Veil-The Abyss of Amnesia", software: ["Maya"], date: new Date(2024, 4, 5) },
+        { id: "Image Processing Algorithms", software: ["Processing"], date: new Date(2025, 1, 10) },
+        { id: "Edges highlighted effect using Convolution Kernels", software: ["Processing"], date: new Date(2025, 1, 10) },
+        { id: "Pokemon card effect using 3D pixels", software: ["Processing"], date: new Date(2025, 1, 10) },
+        { id: "Splitting RGB effect using the RGB value extracted", software: ["Processing"], date: new Date(2025, 1, 10) },
+        { id: "Gothic stained glass windows using Mosaic concept", software: ["Processing"], date: new Date(2025, 1, 10) },
+        { id: "Video Processing", software: ["Processing"], date: new Date(2025, 2, 13) },
+        { id: "Temporal Face-Mapped Video Playback", software: ["Processing"], date: new Date(2025, 2, 13) },
+        { id: "Pop Cat Defense: Motion-Activated Gameplay", software: ["Processing"], date: new Date(2025, 2, 13) },
+        { id: "Move to Support Your Idol!", software: ["Processing"], date: new Date(2025, 2, 13) },
+        { id: "AlchemAR-AR game", software: ["Processing"], date: new Date(2025, 2, 6) },
+        { id: "Rhythm Trainer", software: ["Arduino"], date: new Date(2024, 10, 6) },
+        { id: "Emoji Board", software: ["Arduino"], date: new Date(2024, 10, 17) },
+        { id: "Machine Learning: Anime Character || Art Style Generator", software: ["Python"], date: new Date(2023, 11, 12) },
+        { id: "“The Window Seat of Memory” with MemoralLens", software: ["Physical"], date: new Date(2025, 4, 5) },
+        { id: "Chromatic Fractals", software: ["Processing"], date: new Date(2024, 11, 10) },
+        { id: "Computational image collage work", software: ["TouchDesigner"], date: new Date(2025, 1, 11) },
+        { id: "VisualText", software: ["TouchDesigner"], date: new Date(2025, 1, 18) },
+        { id: "You Have the Power to Plant Seeds in Others’ Hearts", software: ["Processing", "TouchDesigner", "ChucK", "OpenCV"], date: new Date(2025, 3, 21) }
     ];
 
     // Unique softwares
@@ -131,19 +131,19 @@
     // Container
     const container = d3.select("#vis-node-link_diagram").style("position", "relative");
 
-    // Legend with checkboxes
+    // Legend with checkboxes (darker background)
     const legendDiv = container.append("div")
         .style("position", "absolute")
         .style("top", "10px")
         .style("left", "10px")
-        .style("background", "white")
+        .style("background", "#333333")  // Darker background
         .style("padding", "5px")
-        .style("border", "1px solid #ccc")
+        .style("border", "1px solid #474747ff")
         .style("border-radius", "5px");
 
     softwaresList.forEach((s, i) => {
         legendDiv.append("div")
-            .html(`<label><input type="checkbox" checked data-software="${s}"> <span style="color: ${colors(s)}">●</span> ${s}</label>`);
+            .html(`<label style="color: white;"><input type="checkbox" checked data-software="${s}"> <span style="color: ${colors(s)}">●</span> ${s}</label>`);  // White text for checkboxes
     });
 
     // Create SVG container
@@ -173,10 +173,10 @@
         .force("x", d3.forceX().x(d => d3.mean(d.software.map(s => xPos[s] || width / 2))).strength(0.6))
         .force("y", d3.forceY().y(d => d3.mean(d.software.map(s => yPos[s] || height / 2))).strength(0.6));
 
-    // Tooltip
+    // Tooltip (darker background)
     const tooltip = d3.select("body").select(".tooltip").empty()
-        ? d3.select("body").append("div").attr("class", "tooltip")
-        : d3.select("body").select(".tooltip");
+        ? d3.select("body").append("div").attr("class", "tooltip").style("background", "#333333")  // Darker background
+        : d3.select("body").select(".tooltip").style("background", "#333333");  // Darker background
 
     // Calculate min and max dates
     const minDate = d3.min(nodes, d => d.date);
@@ -254,7 +254,7 @@
         nodeEnter.append("circle")
             .attr("r", 10)
             .style("fill", d => colors(d.software[0]))
-            .style("stroke", "#fff")
+            .style("stroke", "#a9a9a9ff")
             .style("stroke-width", 1.5);
 
         nodeEnter.append("text")
@@ -262,7 +262,7 @@
             .attr("dy", ".35em")
             .text(d => d.id)
             .style("font-size", "10px")
-            .style("fill", "black");
+            .style("fill", "#333333");  // Darker text color
 
         nodeUpdate.exit().remove();
 
@@ -275,11 +275,7 @@
                 if (imageUrl) {
                     htmlContent += `<img src="${imageUrl}" style="width:100px; height:auto; float:left; margin-right:10px;">`;
                 }
-                htmlContent += `<div><strong>${d.id}</strong><br>Software: ${d.software.join(", ")}`;
-                if (d.details) {
-                    htmlContent += `<br>${d.details.replace(/\n/g, '<br>')}`;
-                }
-                htmlContent += `<br>Month: ${monthYear}</div>`;
+                htmlContent += `<div><strong>${d.id}</strong><br>Software: ${d.software.join(", ")}<br>Month: ${monthYear}</div>`;
                 tooltip.style("opacity", 1)
                     .html(htmlContent)
                     .style("left", (event.pageX + 10) + "px")

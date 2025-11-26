@@ -1,4 +1,4 @@
-// src/hobby.js — FINAL PERFECT VERSION (labels 100% visible!)
+// src/hobby.js — FINAL PERFECT VERSION (with hover tooltip!)
 (function() {
     'use strict';
 
@@ -32,9 +32,9 @@
 
     const container = d3.select("#vis-hobby");
 
-    // Responsive size — max ~460px
+    // Responsive size
     const size = Math.min(window.innerWidth * 0.35, 460);
-    const radius = size / 2 - 10;
+    const radius = size / 2 - 25;
 
     const svg = container.append("svg")
         .attr("width", "100%")
@@ -76,12 +76,20 @@
         .attr("stroke", "antiquewhite")
         .attr("stroke-width", 3)
         .style("cursor", "pointer")
-        .on("mouseover", function() {
+        .on("mouseover", function(event, d) {
+            // Grow slice
             d3.select(this).transition().duration(200)
-                .attr("d", d3.arc().innerRadius(0).outerRadius(radius * 1.08));
+                .attr("d", d3.arc().innerRadius(0).outerRadius(radius * 1.08)(d));
+            // Show tooltip
+            showTooltip(event, d.data.label, d.data.value);
+        })
+        .on("mousemove", function(event) {
+            tooltip.style("left", (event.pageX + 15) + "px")
+                   .style("top", (event.pageY - 10) + "px");
         })
         .on("mouseout", function() {
             d3.select(this).transition().duration(200).attr("d", arc);
+            tooltip.style("opacity", 0);
         })
         .on("click", function(event, d) {
             if (d.data.label === 'Drawing') {
@@ -89,35 +97,52 @@
             }
         });
 
-    // LABELS — NOW 100% VISIBLE
+    // LABELS — Clean & visible
     arcs.append("text")
         .attr("transform", d => {
             const [x, y] = arc.centroid(d);
-            // Move label slightly outward for better readability
-            const angle = (d.startAngle + d.endAngle) / 2;
             const offset = radius * 0.7;
-            return `translate(${x * 1.2}, ${y * 1.2})`;
+            return `translate(${x * 1.18}, ${y * 1.18})`;
         })
         .attr("dy", "0.35em")
         .style("text-anchor", "middle")
-        .style("font-size", "10px")
-        .style("font-weight", "bold")
-        .style("fill", "#39395aff")           // DARK NAVY — perfect contrast on all pastel
+        .style("font-size", "8px")
+        .style("font-weight", "5px")
+        .style("fill", "#1a1a2e")
         .style("pointer-events", "none")
-        .style("text-shadow", "1px 1px 2px rgba(0,0,0,0.3)")
         .text(d => d.data.label);
 
-    // Optional: show percentage inside (smaller)
+    // Percentage inside
     arcs.append("text")
         .attr("transform", d => `translate(${arc.centroid(d)})`)
-        .attr("dy", "1.em")
+        .attr("dy", "1.4em")
         .style("text-anchor", "middle")
-        .style("font-size", "8px")
+        .style("font-size", "12px")
         .style("fill", "#1a1a2e")
         .style("font-weight", "bold")
-        .style("pointer-events", "none");
+        .style("pointer-events", "none")
 
-    // Lightbox
+    // TOOLTIP — Beautiful hover info
+    const tooltip = d3.select("body").append("div")
+        .attr("class", "hobby-tooltip")
+        .style("position", "absolute")
+        .style("background", "rgba(0,0,0,0.9)")
+        .style("color", "white")
+        .style("padding", "10px 16px")
+        .style("border-radius", "12px")
+        .style("font", "bold 16px Tahoma")
+        .style("pointer-events", "none")
+        .style("opacity", 0)
+        .style("transition", "opacity 0.2s")
+        .style("box-shadow", "0 8px 25px rgba(0,0,0,0.5)")
+        .style("z-index", "1000");
+
+    function showTooltip(event, label, value) {
+        tooltip.html(`<strong>${label}</strong><br>${value}% of my hobby time`)
+               .style("opacity", 1);
+    }
+
+    // Lightbox controls
     const lightbox = document.getElementById('drawing-lightbox');
     if (lightbox) {
         lightbox.onclick = closeDrawingLightbox;

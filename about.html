@@ -19,7 +19,7 @@
         nav {
             margin: 2em auto;
             text-align: center;
-            padding: 0 15px;
+            padding: 0 5px;
             overflow-x: auto;
             white-space: nowrap;
         }
@@ -28,11 +28,11 @@
             display: inline-flex;
             gap: 0.8em;
             list-style: none;
-            padding: 12px 0;
+            padding: 8px 0;
         }
 
         .view-more-btn {
-            padding: 12px 28px;
+            padding: 12px 18px;
             background: khaki;
             color: rgb(92, 165, 165);
             font-weight: bold;
@@ -50,30 +50,30 @@
 
         /* Main layout */
         #about {
-            padding: 80px 5vw 140px;
+            padding: 40px 5vw 50px;
             background: rgb(92, 165, 165);
         }
 
         #about > h2 {
             text-align: center;
-            font-size: 2.5em;
+            font-size: 2.em;
             color: antiquewhite;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
         }
 
         .about-list {
-            max-width: 1600px;
+            max-width: 1000px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 110px;
+            gap: 25px;
         }
 
         .about-entry {
             background: rgb(92, 165, 165);
             border: dotted antiquewhite 6px;
             border-radius: 2.5em;
-            padding: 70px 90px;
+            padding: 20px 25px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.35);
             transition: all 0.6s ease;
         }
@@ -87,13 +87,13 @@
             text-align: center;
             font-size: 2em;
             color: antiquewhite;
-            margin-bottom: 50px;
+            margin-bottom: 25px;
         }
 
         .about-body {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 20px;
             align-items: center;
         }
 
@@ -102,7 +102,7 @@
                 flex-direction: row;
                 align-items: flex-start;
                 justify-content: center;
-                gap: 50px;
+                gap: 25px;
             }
         }
 
@@ -117,29 +117,29 @@
         }
 
         .about-points {
-            font-size: 1.6em;
+            font-size: 1.em;
             line-height: 2.1;
             color: khaki;
         }
 
         .about-points div {
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
 
         .about-points strong {
             color: antiquewhite;
-            font-size: 1.1em;
+            font-size: 1.em;
         }
 
         /* D3 Charts - FULLY RESPONSIVE */
         .chart-container {
-            width: 100%;
+            width: 70%;
             max-width: 600px;
             margin: 0 auto;
         }
 
         .chart-container svg {
-            width: 100% !important;
+            width: 70% !important;
             height: auto !important;
             display: block;
         }
@@ -157,7 +157,7 @@
         }
 
         #drawing-lightbox img {
-            max-width: 90%;
+            max-width: 80%;
             max-height: 85vh;
             border-radius: 16px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.8);
@@ -168,8 +168,7 @@
             top: 30px;
             left: 40px;
             color: #fff;
-            font-size: 46px;
-            font-weight: bold;
+            font-size: 50bold;
             cursor: pointer;
         }
 
@@ -253,7 +252,6 @@
     <nav>
         <ul>
             <li><a href="about.html" class="view-more-btn">˖˚⊹AboutMe⊹˚˖</a></li>
-            <li><a href="#vis-node-link_diagram" class="view-more-btn">˖˚⊹Skills⊹˚˖</a></li>
             <li><a href="index.html" class="view-more-btn">˖˚⊹Home⊹˚˖</a></li>
             <li><a href="mywork.html" class="view-more-btn">˖˚⊹Works⊹˚˖</a></li>
             <li><a href="experience.html" class="view-more-btn">˖˚⊹Experience⊹˚˖</a></li> <!-- NEW BUTTON ADDED -->
@@ -332,8 +330,8 @@
     <!-- Drawing Lightbox -->
     <div id="drawing-lightbox">
         <span class="drawing-close">×</span>
-        <span class="drawing-nav" id="drawing-prev"><-</span>
-        <span class="drawing-nav" id="drawing-next">-></span>
+        <span class="drawing-nav" id="drawing-prev"> <- </span>
+        <span class="drawing-nav" id="drawing-next"> -> </span>
         <img id="drawing-img">
     </div>
 
@@ -364,7 +362,7 @@
         const lightbox = document.getElementById('drawing-lightbox');
         const img = document.getElementById('drawing-img');
         let currentIndex = 0;
-        const images = ['images/d00.gif','images/d01.gif','images/d02.gif','images/d03.gif','images/d04.gif'];
+        const images = ['images/miku.png','images/newyear.png','images/twoboys.png','images/twogirls.png','images/night.png'];
 
         document.querySelectorAll('.about-gallery img').forEach((img, i) => {
             img.onclick = () => {
