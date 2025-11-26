@@ -5,8 +5,8 @@
     const container = d3.select("#vis-mbti");
     
     // Dimensions (increased width for dual axes)
-    const margin = { top: 45, right: 150, bottom: 40, left: 150 };  // Wider right margin for right axis
-    const width = 600 - margin.left - margin.right;  // Adjusted total width
+    const margin = { top: 45, right: 100, bottom: 40, left: 100 };  // Wider right margin for right axis
+    const width = 500 - margin.left - margin.right;  // Adjusted total width
     const height = 200 - margin.top - margin.bottom;
 
     // Create SVG

@@ -8,70 +8,248 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <style>
-        section#about.container {
-            all: revert !important;
-            width: 100% !important;
-            max-width: none !important;
-            padding: 60px 20px 100px !important;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { background: white; scroll-behavior: smooth; }
+        body {
             background: rgb(92, 165, 165);
+            color: khaki;
+            font: 16px/1.8 Tahoma, sans-serif;
+        }
+
+        nav {
+            margin: 2em auto;
+            text-align: center;
+            padding: 0 15px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        nav ul {
+            display: inline-flex;
+            gap: 0.8em;
+            list-style: none;
+            padding: 12px 0;
+        }
+
+        .view-more-btn {
+            padding: 12px 28px;
+            background: khaki;
+            color: rgb(92, 165, 165);
+            font-weight: bold;
+            font-size: 1.05em Tahoma, sans-serif;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .view-more-btn:hover {
+            background: antiquewhite;
+            transform: scale(1.05);
+        }
+
+        /* Main layout */
+        #about {
+            padding: 80px 5vw 140px;
+            background: rgb(92, 165, 165);
+        }
+
+        #about > h2 {
+            text-align: center;
+            font-size: 2.5em;
+            color: antiquewhite;
+            margin-bottom: 40px;
         }
 
         .about-list {
-            max-width: 1100px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 0 40px;
             display: flex;
             flex-direction: column;
-            gap: 70px;
+            gap: 110px;
         }
 
         .about-entry {
-            border: dotted antiquewhite 6px;
-            border-radius: 2em;
-            padding: 40px 60px;
             background: rgb(92, 165, 165);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+            border: dotted antiquewhite 6px;
+            border-radius: 2.5em;
+            padding: 70px 90px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.35);
             transition: all 0.6s ease;
         }
 
         .about-entry:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.38);
+            transform: translateY(-12px);
+            box-shadow: 0 40px 90px rgba(0,0,0,0.45);
         }
 
         .about-title {
-            font-size: 2.8em;
-            color: antiquewhite;
             text-align: center;
-            margin-bottom: 30px;
+            font-size: 2em;
+            color: antiquewhite;
+            margin-bottom: 50px;
         }
 
         .about-body {
             display: flex;
-            gap: 60px;
-            align-items: flex-start;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (min-width: 900px) {
+            .about-body {
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: center;
+                gap: 50px;
+            }
         }
 
         .about-text {
             flex: 1;
             min-width: 0;
-            text-align: left;
+            text-align: center;
+        }
+
+        @media (min-width: 900px) {
+            .about-text { text-align: left; }
         }
 
         .about-points {
-            font-size: 1.55em;
-            line-height: 1.9;
+            font-size: 1.6em;
+            line-height: 2.1;
             color: khaki;
-            margin: 20px 0 30px;
         }
 
-        .about-points strong { color: antiquewhite; }
+        .about-points div {
+            margin-bottom: 25px;
+        }
 
+        .about-points strong {
+            color: antiquewhite;
+            font-size: 1.1em;
+        }
 
+        /* D3 Charts - FULLY RESPONSIVE */
+        .chart-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .chart-container svg {
+            width: 100% !important;
+            height: auto !important;
+            display: block;
+        }
+
+        /* Drawing Lightbox */
+        #drawing-lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            background: rgba(0,0,0,0.94);
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        #drawing-lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+
+        .drawing-close {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            color: #fff;
+            font-size: 46px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .drawing-nav {
+            position: absolute;
+            top: 50%;
+            font-size: 50px;
+            color: #fff;
+            cursor: pointer;
+            user-select: none;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+
+        #drawing-prev { left: 30px; }
+        #drawing-next { right: 30px; }
+
+        /* Back to Top */
+        #back-to-top {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            width: 64px;
+            height: 64px;
+            background: khaki;
+            color: rgb(92, 165, 165);
+            border: none;
+            border-radius: 50%;
+            font-size: 32px;
+            cursor: pointer;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 998;
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #back-to-top:hover {
+            background: antiquewhite;
+            transform: scale(1.15);
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: rgb(92, 165, 165);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            color: khaki;
+            font-size: 1.8em;
+            transition: opacity 0.8s ease-out;
+        }
+
+        .hourglass {
+            width: 100px;
+            height: 100px;
+            border: 12px solid khaki;
+            border-radius: 50%;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+            animation: spin 1.4s linear infinite;
+            margin-bottom: 40px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loaded #loader { opacity: 0; visibility: hidden; pointer-events: none; }
     </style>
 </head>
 
 <body>
+
     <nav>
         <ul>
             <li><a href="about.html" class="view-more-btn">˖˚⊹AboutMe⊹˚˖</a></li>
@@ -82,9 +260,12 @@
         </ul>
     </nav>
 
-    <section class="container" id="about">
+    <section id="about">
+        <h2>More About Me</h2>
+
         <div class="about-list">
-            <!-- Introduction + MBTI -->
+
+            <!-- Introduction -->
             <div class="about-entry">
                 <div class="about-title">Introduction</div>
                 <div class="about-body">
@@ -94,11 +275,9 @@
                             <div><strong>Age:</strong> still young 0w0</div>
                             <div><strong>Favorite color:</strong> Light green</div>
                             <div><strong>Favorite food:</strong> Takoyaki</div>
-                            <div><strong>MBTI:</strong> ENFJ — The Protagonist
-                                <section id="vis-mbti" style="width: 600px; height: 300px; margin: 20px auto;"></section>
-                                <script src="src/mbti.js"></script>
-                            </div>
+                            <div><strong>MBTI:</strong> ENFJ — The Protagonist</div>
                         </div>
+                        <div class="chart-container" id="vis-mbti"></div>
                     </div>
                 </div>
             </div>
@@ -107,16 +286,15 @@
             <div class="about-entry">
                 <div class="about-title">Hobby</div>
                 <div class="about-body">
-                    <section id="vis-hobby" style="width: 100%; height: 400px;"></section>
-                    <script src="src/hobby.js"></script>
+                    <div class="chart-container" id="vis-hobby"></div>
                 </div>
+                <div>Press on the drawing part to view my drawings :D</div>
             </div>
 
-            <!-- University Course Grades -->
+            <!-- Grades -->
             <div class="about-entry">
                 <div class="about-title">University Course Grade</div>
-                <section id="vis-grades-scatter"></section>
-                <script src="src/grades-scatter.js"></script>
+                <div class="chart-container" id="vis-grades-scatter"></div>
             </div>
 
             <!-- Instruments -->
@@ -124,7 +302,7 @@
                 <div class="about-title">Instruments I Play</div>
                 <div class="about-body">
                     <div class="about-text">
-                        <div class="about-points" style="font-size:1.7em;">
+                        <div class="about-points" style="font-size:1.8em;">
                             <div>Drum set🥁</div>
                             <div>Piano🎹</div>
                         </div>
@@ -137,48 +315,77 @@
                 <div class="about-title">Favorite Singer</div>
                 <div class="about-body">
                     <div class="about-text">
-                        <p style="font-size:1.55em; margin-bottom:40px; color:khaki;">葉月ゆら — Hatsuki Yura</p>
+                        <p style="font-size:1.8em; margin-bottom:40px; color:khaki;">葉月ゆら — Hatsuki Yura</p>
                         <a href="https://www.youtube.com/playlist?list=PLjFjwa9nwKrfrVHYNUnuk6uwPr4joojPW" target="_blank" class="view-more-btn">
                             Listen to My Favorite Playlist on YouTube
                         </a>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
+    <!-- Back to Top -->
+    <button id="back-to-top" title="Back to Top">^</button>
+
     <!-- Drawing Lightbox -->
-    <div id="drawing-lightbox" style="display:none;position:fixed;z-index:9999;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.92);justify-content:center;align-items:center;cursor:pointer;">
-        <span class="drawing-close" style="position:absolute;top:30px;left:40px;color:#fff;font-size:46px;font-weight:bold;cursor:pointer;">×</span>
-        <span class="drawing-nav" id="drawing-prev" style="position:absolute;top:50%;left:30px;font-size:50px;color:#fff;cursor:pointer;transform:translateY(-50%);">Left Arrow</span>
-        <span class="drawing-nav" id="drawing-next" style="position:absolute;top:50%;right:30px;font-size:50px;color:#fff;cursor:pointer;transform:translateY(-50%);">Right Arrow</span>
-        <img id="drawing-img" style="width:300px;height:auto;max-width:90%;max-height:85vh;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.8);">
+    <div id="drawing-lightbox">
+        <span class="drawing-close">×</span>
+        <span class="drawing-nav" id="drawing-prev"><-</span>
+        <span class="drawing-nav" id="drawing-next">-></span>
+        <img id="drawing-img">
     </div>
 
-<!-- Loader -->
+    <!-- Loader -->
     <div id="loader">
         <div class="hourglass"></div>
         <p>It is almost done! Please wait~</p>
     </div>
 
-    <style>
-        #loader {
-            position: fixed; inset: 0; background: rgb(92, 165, 165);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            z-index: 9999; transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
-            color: khaki; font-size: 1.4em; font-family: Tahoma, sans-serif;
-        }
-        .hourglass {
-            width: 60px; height: 60px; border: 8px solid khaki; border-radius: 50%;
-            border-top-color: transparent; border-bottom-color: transparent;
-            animation: spin 1.5s linear infinite; margin-bottom: 20px;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .loaded #loader { opacity: 0; visibility: hidden; }
-    </style>
+    <script src="src/mbti.js"></script>
+    <script src="src/hobby.js"></script>
+    <script src="src/grades-scatter.js"></script>
 
     <script>
-        window.addEventListener('load', () => document.body.classList.add('loaded'));
+        // Back to top
+        const btt = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            btt.classList.toggle('show', window.scrollY > 500);
+        });
+        btt.onclick = () => window.scrollTo({top:0, behavior:'smooth'});
+
+        // Loader
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+        });
+
+        // Drawing lightbox (if you still want it)
+        const lightbox = document.getElementById('drawing-lightbox');
+        const img = document.getElementById('drawing-img');
+        let currentIndex = 0;
+        const images = ['images/d00.gif','images/d01.gif','images/d02.gif','images/d03.gif','images/d04.gif'];
+
+        document.querySelectorAll('.about-gallery img').forEach((img, i) => {
+            img.onclick = () => {
+                currentIndex = i;
+                document.getElementById('drawing-img').src = images[i];
+                lightbox.style.display = 'flex';
+            };
+        });
+
+        document.querySelector('.drawing-close').onclick = () => lightbox.style.display = 'none';
+        document.getElementById('drawing-prev').onclick = (e) => {
+            e.stopPropagation();
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            img.src = images[currentIndex];
+        };
+        document.getElementById('drawing-next').onclick = (e) => {
+            e.stopPropagation();
+            currentIndex = (currentIndex + 1) % images.length;
+            img.src = images[currentIndex];
+        };
+        lightbox.onclick = () => lightbox.style.display = 'none';
     </script>
 </body>
 </html>

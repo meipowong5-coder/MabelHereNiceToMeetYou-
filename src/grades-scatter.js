@@ -2,7 +2,7 @@
 (function () {
     const width = 700;
     const height = 700;
-    const margin = { top: 80, right: 100, bottom: 80, left: 200 };
+    const margin = { top: 50, right: 80, bottom: 60, left: 80 };  // was 80/100/80/200 → now tighter!
     const container = d3.select("#vis-grades-scatter");
 
     const svg = container
@@ -16,7 +16,7 @@
 
     // Dropdown — exactly your requested size & position
     const dropdown = svg.append("foreignObject")
-        .attr("width", 270)
+        .attr("width", 500)
         .attr("height", 60)
         .attr("x", width - 270)
         .attr("y", -10);
@@ -182,8 +182,8 @@
         .style("max-width", "300px")
         .style("box-shadow", "0 4px 15px rgba(0,0,0,0.4)");
 
-    dots.on("mouseover", function(event, d) {
-            tooltip.html(`
+    dots.on("mouseover", function (event, d) {
+        tooltip.html(`
                 <strong>${d.name}</strong><br>
                 <strong>Grade: ${d.grade}</strong> • Credits: ${d.credits}<br>
                 Type: ${d.type === "SM" ? "School of Creative Media" : d.type === "GE" ? "General Education" : "Joint Course"}
@@ -191,11 +191,11 @@
             .style("opacity", 1)
             .style("left", (event.pageX + 12) + "px")
             .style("top", (event.pageY - 10) + "px");
-        })
+    })
         .on("mouseout", () => tooltip.style("opacity", 0));
 
-// Dropdown filter — now works perfectly with full names
-    select.on("change", function() {
+    // Dropdown filter — now works perfectly with full names
+    select.on("change", function () {
         const selected = this.value;  // "All", "SM", "GE", or "JC"
         dots.transition()
             .duration(600)

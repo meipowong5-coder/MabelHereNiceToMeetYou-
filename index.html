@@ -18,7 +18,7 @@
             line-height: 1.6;
         }
 
-        /* Navigation - Horizontal + tighter spacing */
+        /* Navigation - Always horizontal + super tight on small screens */
         nav {
             margin: 1.5em auto;
             text-align: center;
@@ -30,15 +30,18 @@
 
         nav ul {
             display: inline-flex;
-            gap: 0.8em; /* closer buttons */
+            gap: 0.6em; /* very close on small screens */
             list-style: none;
             padding: 10px 0;
             min-width: max-content;
         }
 
+        @media (max-width: 480px) {
+            nav ul { gap: 0.4em; }
+        }
+
         .view-more-btn {
-            display: inline-block;
-            padding: 11px 22px;
+            padding: 11px 20px;
             background: khaki;
             color: rgb(92, 165, 165);
             font-weight: bold;
@@ -55,7 +58,7 @@
             transform: scale(1.05);
         }
 
-        /* Main layout */
+        /* Main layout - centered on all screens */
         .intro-section {
             max-width: 1400px;
             margin: 20px auto;
@@ -71,21 +74,27 @@
             }
         }
 
-        /* Full-width on small screens */
-        @media (max-width: 480px) {
+        /* Mobile: 75% width + centered containers */
+        @media (max-width: 768px) {
             .intro-section {
-                padding: 0;
-                margin: 10px 0;
+                padding: 0 20px;
             }
             .container,
             #vis-node-link_diagram {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
-                margin-right: calc(-50vw + 50%) !important;
-                border-radius: 0 !important;
-                border-left: none !important;
-                border-right: none !important;
-                padding: 2em 1.5em;
+                width: 75%;
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 2.5em;
+                border: dotted antiquewhite 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container,
+            #vis-node-link_diagram {
+                width: 85%;
+                padding: 1.8em;
             }
         }
 
@@ -157,15 +166,6 @@
             scrollbar-color: khaki transparent;
             width: 100%;
             box-sizing: border-box;
-        }
-
-        .scroll-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .scroll-container::-webkit-scrollbar-thumb {
-            background: khaki;
-            border-radius: 10px;
         }
 
         .scroll-container img {
@@ -419,7 +419,7 @@
 
     <section id="vis-node-link_diagram"></section>
 
-    <button id="back-to-top" title="Back to Top">Top</button>
+    <button id="back-to-top" title="Back to Top"></button>
 
     <script src="src/abilityradar.js"></script>
     <script src="src/node-link_diagram.js"></script>
