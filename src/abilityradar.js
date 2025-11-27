@@ -46,7 +46,7 @@ const treeData = {
         {
             name: "Professional Skills",
             children: [
-                { name: "Creativity", score: 5 },
+                { name: "Creativity", score: 7 },
                 { name: "Discipline", score: 7.5 },
                 { name: "Adapt.", score: 8 },
                 { name: "Time Management", score: 7.5 },
