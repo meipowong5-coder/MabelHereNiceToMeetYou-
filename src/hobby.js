@@ -117,7 +117,7 @@
         .attr("transform", d => `translate(${arc.centroid(d)})`)
         .attr("dy", "1.4em")
         .style("text-anchor", "middle")
-        .style("font-size", "12px")
+        .style("font-size", "15px")
         .style("fill", "#1a1a2e")
         .style("font-weight", "bold")
         .style("pointer-events", "none")
