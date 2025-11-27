@@ -3,11 +3,11 @@
     'use strict';
 
     const drawingImages = [
-        'images/twoboys.png',
         'images/twogirls.png',
         'images/night.png',
         'images/newyear.png',
-        'images/miku.png'
+        'images/miku.png',
+        'images/twoboys.png'
     ];
     let currentDrawingIndex = 0;
 

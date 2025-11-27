@@ -233,7 +233,7 @@
 
         linkUpdate.enter()
             .append("line")
-            .style("stroke", "#ccc")
+            .style("stroke", "#ffffffff")
             .style("stroke-opacity", 0.8)
             .style("stroke-width", 0.5);
 
