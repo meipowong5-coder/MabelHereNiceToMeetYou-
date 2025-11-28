@@ -29,13 +29,12 @@
         { id: "VisualText", software: ["TouchDesigner"], date: new Date(2025, 1, 18) },
         { id: "You Have the Power to Plant Seeds in Others’ Hearts", software: ["Processing", "TouchDesigner", "ChucK", "OpenCV"], date: new Date(2025, 3, 21) }
     ];
-
     // Unique softwares
     const softwaresList = Array.from(new Set(nodes.flatMap(d => d.software))).sort();
-
-    // Colors
-    const colors = d3.scaleOrdinal(d3.schemeCategory10).domain(softwaresList);
-
+    // Colors - CHANGED to custom user-defined colors (soft, friendly palette)
+    const colors = d3.scaleOrdinal()
+        .domain(softwaresList)
+        .range(["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd", "#ccebc5", "#ffed6f"]);
     // Positions
     const xPos = {
         "Processing": width * 0.5,
@@ -47,7 +46,6 @@
         "ChucK": width * 0.8,
         "OpenCV": width * 0.5
     };
-
     const yPos = {
         "Processing": height * 0.2,
         "Arduino": height * 0.6,
@@ -58,7 +56,6 @@
         "ChucK": height * 0.7,
         "OpenCV": height * 0.3
     };
-
     // Image map for tooltips
     const imageMap = {
         "Video jigsaw puzzle": "images/Video jigsaw puzzle.png",
@@ -83,7 +80,6 @@
         "VisualText": "images/VisualText.png",
         "You Have the Power to Plant Seeds in Others’ Hearts": "https://isea2023.ensad.fr/Motherplant.png"
     };
-
     // Create links for artworks sharing the same software, with hierarchy for subgroups
     const links = [
         // Processing mains pairwise
@@ -127,25 +123,21 @@
         { source: "You Have the Power to Plant Seeds in Others’ Hearts", target: "AlchemAR-AR game" },
         { source: "You Have the Power to Plant Seeds in Others’ Hearts", target: "VisualText" }
     ];
-
     // Container
     const container = d3.select("#vis-node-link_diagram").style("position", "relative");
-
     // Legend with checkboxes (darker background)
     const legendDiv = container.append("div")
         .style("position", "absolute")
         .style("top", "10px")
         .style("left", "10px")
-        .style("background", "#333333")  // Darker background
+        .style("background", "#333333") // Darker background
         .style("padding", "5px")
         .style("border", "1px solid #474747ff")
         .style("border-radius", "5px");
-
     softwaresList.forEach((s, i) => {
         legendDiv.append("div")
-            .html(`<label style="color: white;"><input type="checkbox" checked data-software="${s}"> <span style="color: ${colors(s)}">●</span> ${s}</label>`);  // White text for checkboxes
+            .html(`<label style="color: white;"><input type="checkbox" checked data-software="${s}"> <span style="color: ${colors(s)}">●</span> ${s}</label>`); // White text for checkboxes
     });
-
     // Create SVG container
     const svg = container
         .append("svg")
@@ -154,7 +146,6 @@
         .attr("viewBox", [0, 0, width, height])
         .append("g")
         .attr("transform", "translate(0,30)");
-
     // Add title
     svg.append("text")
         .attr("x", width / 2)
@@ -163,7 +154,6 @@
         .style("font-size", "16px")
         .style("font-weight", "bold")
         .text("Artworks Network by Software");
-
     // Force simulation
     const simulation = d3.forceSimulation()
         .force("link", d3.forceLink().id(d => d.id).distance(d => d.source.software.includes("Processing") && d.target.software.includes("Processing") ? 200 : 100).strength(0.5))
@@ -172,25 +162,21 @@
         .force("collision", d3.forceCollide().radius(d => d.software.includes("Processing") ? 50 : 20))
         .force("x", d3.forceX().x(d => d3.mean(d.software.map(s => xPos[s] || width / 2))).strength(0.6))
         .force("y", d3.forceY().y(d => d3.mean(d.software.map(s => yPos[s] || height / 2))).strength(0.6));
-
-    // Tooltip (darker background)
+    // Tooltip
     const tooltip = d3.select("body").select(".tooltip").empty()
-        ? d3.select("body").append("div").attr("class", "tooltip").style("background", "#333333")  // Darker background
-        : d3.select("body").select(".tooltip").style("background", "#333333");  // Darker background
-
+        ? d3.select("body").append("div").attr("class", "tooltip")
+        : d3.select(".tooltip");
     // Calculate min and max dates
     const minDate = d3.min(nodes, d => d.date);
     const maxDate = d3.max(nodes, d => d.date);
     const minTime = minDate.getTime();
     const maxTime = maxDate.getTime();
-
     // Add slider
     container.append("label").text("Month: ");
     const dateLabel = container.append("span").attr("id", "date-label").style("margin-left", "10px");
     let currentDate = maxDate;
     const initialMonthYear = maxDate.toLocaleString('default', { month: 'long', year: 'numeric' });
     dateLabel.text(initialMonthYear);
-
     const slider = container.append("input")
         .attr("type", "range")
         .attr("min", minTime)
@@ -206,10 +192,8 @@
             currentDate = selectedDate;
             updateGraph(currentDate, selectedSoftwares);
         });
-
     // Selected softwares
     let selectedSoftwares = [...softwaresList];
-
     // Listen for checkbox changes
     container.selectAll("input[type=checkbox]").on("change", function() {
         selectedSoftwares = [];
@@ -220,20 +204,18 @@
         });
         updateGraph(currentDate, selectedSoftwares);
     });
-
     // Update function
     function updateGraph(selectedDate, selected = softwaresList) {
         const filteredNodes = nodes.filter(d => d.date <= selectedDate && d.software.some(s => selected.includes(s)));
         const filteredNodeIds = new Set(filteredNodes.map(d => d.id));
         const filteredLinks = links.filter(l => filteredNodeIds.has(l.source.id || l.source) && filteredNodeIds.has(l.target.id || l.target));
-
         // Update links
         const linkUpdate = svg.selectAll("line")
             .data(filteredLinks, d => `${(d.source.id || d.source)}-${(d.target.id || d.target)}`);
 
         linkUpdate.enter()
             .append("line")
-            .style("stroke", "#ffffffff")
+            .style("stroke", "#ccc")
             .style("stroke-opacity", 0.8)
             .style("stroke-width", 0.5);
 
@@ -254,7 +236,7 @@
         nodeEnter.append("circle")
             .attr("r", 10)
             .style("fill", d => colors(d.software[0]))
-            .style("stroke", "#a9a9a9ff")
+            .style("stroke", "#fff")
             .style("stroke-width", 1.5);
 
         nodeEnter.append("text")
@@ -262,7 +244,7 @@
             .attr("dy", ".35em")
             .text(d => d.id)
             .style("font-size", "10px")
-            .style("fill", "#333333");  // Darker text color
+            .style("fill", "black");
 
         nodeUpdate.exit().remove();
 
@@ -290,7 +272,6 @@
         simulation.force("link").links(filteredLinks);
         simulation.alpha(1).restart();
     }
-
     // Tick handler
     simulation.on("tick", () => {
         svg.selectAll("line")
@@ -302,25 +283,21 @@
         svg.selectAll("g.node")
             .attr("transform", d => `translate(${d.x}, ${d.y})`);
     });
-
     // Drag functions
     function dragstarted(event, d) {
         if (!event.active) simulation.alphaTarget(0.3).restart();
         d.fx = d.x;
         d.fy = d.y;
     }
-
     function dragged(event, d) {
         d.fx = event.x;
         d.fy = event.y;
     }
-
     function dragended(event, d) {
         if (!event.active) simulation.alphaTarget(0);
         d.fx = null;
         d.fy = null;
     }
-
     // Initial update
     updateGraph(maxDate, selectedSoftwares);
 })();
