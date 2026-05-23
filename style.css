@@ -344,3 +344,59 @@ nav ul {
     cursor: not-allowed;
     transform: none;
 }
+
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 20px auto;
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    max-width: 900px;
+}
+
+.filter-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgb(243, 243, 243);
+    letter-spacing: 0.5px;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.filter-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    border: 1px solid transparent;
+}
+
+.filter-chip:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Highlight the filter chip when checked */
+.filter-chip:has(input:checked) {
+    background: rgba(240, 230, 140, 0.2); /* Khaki tint */
+    border-color: khaki;
+    color: khaki;
+}
+
+.filter-chip input {
+    cursor: pointer;
+    accent-color: khaki;
+}
