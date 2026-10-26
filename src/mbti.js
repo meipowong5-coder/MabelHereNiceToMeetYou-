@@ -18,10 +18,11 @@
 
     // Data: MBTI dimensions (stacked: left side vs right side, percentages add to 100%)
     const data = [
-        { dimension: "Extraversion (E)", left: 58, right: 42, leftLabel: "External", rightLabel: "Internal" },
-        { dimension: "Intuition (N)", left: 52, right: 48, leftLabel: "Intuitive", rightLabel: "Sensing" },
-        { dimension: "Feeling (F)", left: 60, right: 40, leftLabel: "Feeling", rightLabel: "Thinking" },
-        { dimension: "Perceiving (P)", left: 46, right: 54, leftLabel: "Perceiving", rightLabel: "Judging" }
+        { dimension: "Introversion (I)", left: 54, right: 46, leftLabel: "Internal", rightLabel: "External" },
+        { dimension: "Intuition (N)", left: 51, right: 49, leftLabel: "Intuitive", rightLabel: "Sensing" },
+        { dimension: "Feeling (F)", left: 58, right: 42, leftLabel: "Feeling", rightLabel: "Thinking" },
+        { dimension: "Judging (J)", left: 65, right: 35, leftLabel: "Judging", rightLabel: "Perceiving" },
+        { dimension: "Assertive (A)", left: 53, right: 47, leftLabel: "Assertive", rightLabel: "Turbulent" }
     ];
 
     // Scales
